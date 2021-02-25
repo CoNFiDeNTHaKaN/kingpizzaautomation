@@ -269,7 +269,8 @@
                       <li>
                         <b>{{$orderItem['name']}}</b>
                         {{$orderItem['sizes']}}
-                        <span>&pound; @money_format($orderItem['total_price'])</span>
+                        <span>&pound; @money_format($orderItem['total_price'])</span><br>
+                        <small>{{$orderItem['description']}}</small>
 						@if(array_key_exists('options',$orderItem))
                         @foreach ($orderItem['options'] as $option)
                           @php

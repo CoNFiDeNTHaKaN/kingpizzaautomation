@@ -5,7 +5,7 @@
         
         @foreach($basket->contents as $item)
         <li class="text-right">@if(array_key_exists('options',$item))<button data-toggle="modal" data-target="#order-modal" class="btn_1 small" onclick="showModal({{$item['id']}},{{$loop->iteration}})">Edit</button>@endif <button class="btn_1 small" onclick="removeItem({{$item['id']}})">Remove</button></li>
-        <li><b>{{$item['name']}}</b>@if($item['sizes']) ({{$item['sizes']}}) @endif<span>&pound;@money_format($item['total_price'])</span></li>
+        <li><b>{{$item['name']}}</b>@if($item['sizes']) ({{$item['sizes']}}) @endif<span>&pound;@money_format($item['total_price'])</span><br><small>{{$item['description']}}</small></li>
           <ul>
             @if(array_key_exists('options',$item))
             @foreach ($item['options'] as $option)
