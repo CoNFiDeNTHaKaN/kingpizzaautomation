@@ -1,0 +1,7 @@
+{
+    "require": {
+        "gocardless/gocardless-pro": "~1.1",
+        "agentejo/mongo-lite": "^1.0",
+        "mongodb/mongodb": "^1.3"
+    }
+}

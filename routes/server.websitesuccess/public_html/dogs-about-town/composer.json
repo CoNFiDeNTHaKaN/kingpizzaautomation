@@ -1,0 +1,12 @@
+{
+    "name": "root/dogs-about-town",
+    "require": {
+        "activecampaign/api-php": "^2.0"
+    },
+    "authors": [
+        {
+            "name": "Tom Knox",
+            "email": "tom@websitesuccess.co.uk"
+        }
+    ]
+}

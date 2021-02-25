@@ -1,0 +1,41 @@
+<div class="order-manager" ng-controller="OrderManagerModule">
+  <p class="order-manager__message">Initialising...</p>
+  <table class="tableholder">
+    <thead>
+      <tr>
+        <th style="
+    width: 170px;
+">
+          Order info
+        </th>
+        <th style="
+    width: 150px;
+">
+          Despatch date
+        </th>
+        <th>
+          Personalised message
+        </th>
+        <th style="
+    width: 70px;
+">&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td></td><td></td><td></td><td></td></tr>
+    </tbody>
+    <tfoot style="display:none">
+      <tr>
+        <td colspan="4">
+          <button class="btn" onclick="Table.loadNextPage();">Click to load more orders...</button>
+        </td>
+      </tr>
+    </tfoot>
+  </table>
+
+
+  <script>
+    init();
+  </script>
+
+</div>

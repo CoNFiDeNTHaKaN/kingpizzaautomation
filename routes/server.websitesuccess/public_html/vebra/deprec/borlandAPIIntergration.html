@@ -1,0 +1,606 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>Hello world</title>
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.3.1/jquery.cookie.min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.1/underscore-min.js"></script>
+    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.0.0/backbone-min.js"></script>
+    <script type="text/javascript" src="//cdn.worldsecuresystems.com/bcapi/bcapi-0.1.0.min.js"></script>
+    <style>
+        #button {
+            display:block;
+            width:200px;
+            background: red;
+            color: #fff;
+            padding: 10px;
+            text-decoration: none;
+        }
+        .jim{
+            display:inline;
+        }
+        #console {
+            margin-top:10px;
+            border:2px solid black;
+            height:50px;
+            padding:20px 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='content'>
+        <h1>Vebra Integration</h1>
+        <p>Please leave this window open for a minute or 2 to let the browser run the script</p>
+        <p>You may be prompted by the page if you want to delete an item. This will be when a property appears in
+            the web app but not on vebra. To delete the item type y, and to keep type n.
+        </p>
+        <p>Update Items is based on the day that vebra item is updated, so if you update a property on the same day that the property is editted on the site then nothing will happen.
+        To update this check the force update box, this will update every property based on vebra information so the script may take longer than usual.
+        </p>
+        <p>If you need to re run this please refresh the page before doing so, as it may add extra items to the web app</p>
+        <p>Will look to see if I can add a progress bar to this</p>
+    </div>
+    <a href='#' id='button'>Click to begin</a>
+    <div id='choice'>
+          <input  class='jim' type="checkbox" name="ting1" value="forceUpdate"><span class='jim'>Force Update (update all properties to verbra information)</span>
+    </div>
+    <div id='console'>
+    	
+    </div>
+    
+    <script>
+        
+     
+        // global variables 
+        var consoleOutput = $('#console'),
+       webAppName = 'Vebra Properties For Sale (work in progress)',
+   array = [],
+   access_token = BCAPI.Helper.Site.getAccessToken(),
+   propID = [],
+   j = '',
+   addAllItems = false,
+       updateItems = true,
+       forceUpdate = false
+       detailz = '',
+   disableItems=[],
+       enableItems = [],
+       updateProperties =[], 
+           disableCounter = 0,
+           updatePropertiesCounter = 0,
+                      addCounter = 0,
+                          logCounter = 0
+   
+        
+        
+           function log(msg){
+        	logCounter = logCounter + 1;
+               consoleOutput.text(logCounter + ": " + msg)
+        } // so user can see if its doing something without opening console
+        
+       /* set values for  addAllItems, updateItems and forceUpdate */
+
+    $('input.jim').on('change', function(){
+        if ($(this).prop('checked') == true){
+        	forceUpdate = true;
+            console.log('force update is ' + forceUpdate)
+            log('force update is ' + forceUpdate)
+        }
+        else {
+        	forceUpdate = false;
+            console.log('force update is ' + forceUpdate)
+            log('force update is ' + forceUpdate)
+        }
+    })
+   
+    
+    //delete items function  ---- disable items = delete items 
+    function disableItemsFunction(disableItemsArray){
+        console.log('disable item id ' + disableItemsArray[disableCounter])
+           	
+        var disableItemsRequest = $.ajax({
+    url: "/api/v2/admin/sites/current/webapps/" + webAppName +  "/items/" + disableItemsArray[disableCounter],
+    type: "DELETE",
+    connection: "keep-alive",
+    contentType: "application/json",
+    headers: {
+        "Authorization": $.cookie('access_token')
+    }
+
+});
+disableItemsRequest.done(function (msg) {
+    console.log("Deleted Item");
+    disableCounter = disableCounter + 1;
+    // console.log('disable counter is ' + disableCounter + ' disableItemsArray is ' + disableItemsArray.length)
+    if (disableCounter < disableItemsArray.length){
+    	disableItemsFunction(disableItems)
+    }
+})
+disableItemsRequest.fail(function (jqXHR) {
+ 
+    
+    if (jqXHR.status == 200){
+        console.log("Deleted Item");
+    disableCounter = disableCounter + 1;
+        // console.log('disable counter is ' + disableCounter + ' disableItemsArray is ' + disableItemsArray.length)
+    if (disableCounter < disableItemsArray.length){
+    	disableItemsFunction(disableItems)
+    }
+    }
+    else {
+       console.log("Request failed.");
+        console.log("Error code: " + jqXHR.status);
+        console.log("Error text: " + jqXHR.statusText);
+    console.log("Response text: " + jqXHR.responseText);
+    }
+    
+}) 
+        
+    }// end of delete properties function 
+        
+        // update properties function 
+        function updatePropertiesFunction(updateArray){
+        	for (var i = 0; i < 16 - updateArray[updatePropertiesCounter].vebraDetails.vimageArray.length; i++) {
+               updateArray[updatePropertiesCounter].vebraDetails.vimageArray.push('')
+            } // pushes empty values into array to make it 15 in length
+            var weight = parseInt(updateArray[updatePropertiesCounter].vebraDetails.vprice)
+            var requestUpdate = $.ajax({
+    url: "/api/v2/admin/sites/current/webapps/" + webAppName +"/items/" + updateArray[updatePropertiesCounter].webApp,
+    type: "PUT",
+    connection: "keep-alive",
+    contentType: "application/json",
+    headers: {
+        "Authorization": $.cookie('access_token')
+    },
+     data: JSON.stringify({
+                   "name": updateArray[updatePropertiesCounter].vebraDetails.vaddress,
+                   "description": updateArray[updatePropertiesCounter].vebraDetails.vdescription,
+                   "address": updateArray[updatePropertiesCounter].vebraDetails.vaddress,
+                   "city": updateArray[updatePropertiesCounter].vebraDetails.vcity,
+                   "state": updateArray[updatePropertiesCounter].vebraDetails.vcounty,
+                   "zipCode": updateArray[updatePropertiesCounter].vebraDetails.vpostcode,
+                   "country": "GB",
+                                       "weight":weight, 
+                   "fields": {
+                                       "price":updateArray[updatePropertiesCounter].vebraDetails.vprice,
+                       "longitude": updateArray[updatePropertiesCounter].vebraDetails.vlongitude,
+                       "latitude": updateArray[updatePropertiesCounter].vebraDetails.vlatitude,
+                       "bedrooms": updateArray[updatePropertiesCounter].vebraDetails.vbedrooms,
+                       "receptions": updateArray[updatePropertiesCounter].vebraDetails.vreceptions,
+                       "bathrooms": updateArray[updatePropertiesCounter].vebraDetails.vbathrooms,
+                       "parking": updateArray[updatePropertiesCounter].vebraDetails.vparking,
+                       "garden": updateArray[updatePropertiesCounter].vebraDetails.vgarden,
+                       "type": updateArray[updatePropertiesCounter].vebraDetails.vtype,
+                       "status": updateArray[updatePropertiesCounter].vebraDetails.vstatus,
+                       "photo 1": updateArray[updatePropertiesCounter].vebraDetails.vimageArray[0],
+                       "photo 2": updateArray[updatePropertiesCounter].vebraDetails.vimageArray[1],
+                       "photo 3": updateArray[updatePropertiesCounter].vebraDetails.vimageArray[2],
+                       "photo 4": updateArray[updatePropertiesCounter].vebraDetails.vimageArray[3],
+                       "photo 5": updateArray[updatePropertiesCounter].vebraDetails.vimageArray[4],
+                       "photo 6": updateArray[updatePropertiesCounter].vebraDetails.vimageArray[5],
+                       "photo 7": updateArray[updatePropertiesCounter].vebraDetails.vimageArray[6],
+                       "photo 8": updateArray[updatePropertiesCounter].vebraDetails.vimageArray[7],
+                       "photo 9": updateArray[updatePropertiesCounter].vebraDetails.vimageArray[8],
+                       "photo 10": updateArray[updatePropertiesCounter].vebraDetails.vimageArray[9],
+                        "photo 11": updateArray[updatePropertiesCounter].vebraDetails.vimageArray[10],
+                                       "photo 12": updateArray[updatePropertiesCounter].vebraDetails.vimageArray[11],
+                                       "photo 13": updateArray[updatePropertiesCounter].vebraDetails.vimageArray[12],
+                                       "photo 14": updateArray[updatePropertiesCounter].vebraDetails.vimageArray[13],
+                                       "photo 15": updateArray[updatePropertiesCounter].vebraDetails.vimageArray[14],
+                                       "small description":updateArray[updatePropertiesCounter].vebraDetails.vsmallDesc,
+
+                   }
+
+               })
+});
+requestUpdate.done(function (msg) {
+    console.log("Update successful");
+        updatePropertiesCounter = updatePropertiesCounter + 1
+        log('Updated item: ' + updateArray[updatePropertiesCounter].vebraDetails.vaddress)
+    if (updatePropertiesCounter < updateArray.length){
+        	updatePropertiesFunction(updateProperties)
+    }
+     else if (updatePropertiesCounter == updateArray.length){
+        log('Finished Updating Items')
+        }
+})
+requestUpdate.fail(function (jqXHR) {
+    if (jqXHR.status == 200){
+        console.log('updated gooden')
+        log('Updated item: ' + updateArray[updatePropertiesCounter].vebraDetails.vaddress)
+    updatePropertiesCounter = updatePropertiesCounter + 1
+    if (updatePropertiesCounter < updateArray.length){
+        	updatePropertiesFunction(updateProperties)	
+    }
+        else if (updatePropertiesCounter == updateArray.length){
+        log('Finished Updating Items')
+        }
+    
+    }
+    else{
+    console.log("Request failed.");
+    console.log("Error code: " + jqXHR.status);
+    console.log("Error text: " + jqXHR.statusText);
+    console.log("Response text: " + jqXHR.responseText);
+    }
+}) 
+            
+            
+        }// end of update properties function 
+        
+        // check for new properties function  ----  also deletes old properties no longer on vebra if user answers y to prompt
+   function checkForNewPropertiesFunction(vebraArray){
+         console.log(vebraArray)     
+       var listWebAppItems = $.ajax({
+   url: "/api/v2/admin/sites/current/webapps/" + webAppName +"/items?order=weight&limit=1000",
+   type: "GET",
+   connection: "keep-alive",
+   contentType: "application/json",
+   headers: {
+   "Authorization": $.cookie('access_token')
+   }
+   });
+   listWebAppItems.done(function (data) {
+       console.log(data.items)
+   listWebAppItemsArray = data.items
+   var newItems =[]
+   // check web app items against vebra items
+      for (var i = 0; i < listWebAppItemsArray.length; i++){
+   		var match = false;
+            for (var j = 0; j < vebraArray.length; j++){ 
+                if(listWebAppItemsArray[i].name == vebraArray[j].vaddress){
+                	match = true;
+                    console.log('web app item last update ' +listWebAppItemsArray[i].lastUpdateDate + ' vebra last update ' + vebraArray[j].vlastChanged)
+                    log('web app item last update ' +listWebAppItemsArray[i].lastUpdateDate + ' vebra last update ' + vebraArray[j].vlastChanged)
+                    var webAppUpdate = listWebAppItemsArray[i].lastUpdateDate.replace(/\-/g, ''),
+                        vebraUpdate = vebraArray[j].vlastChanged.replace(/\-/g, '');
+                    if (forceUpdate){
+                    webAppUpdate = webAppUpdate.replace('2', '0') // replaces 2 with 0 to make webappupdate always lower then vebra update
+                    }
+                    webAppUpdate = parseInt(webAppUpdate);
+                    vebraUpdate = parseInt(vebraUpdate)
+                    if (vebraUpdate > webAppUpdate){ // if vebra property has been updated more recently then web app
+                        updateProperties.push(object ={
+                                              
+                                              webApp:listWebAppItemsArray[i].id,
+                                              vebraDetails:vebraArray[j]
+                                              
+                                              })
+                    }
+                    j = vebraArray.length;
+                }
+                
+            }
+      
+          if (match == false){
+              // property was not found on vebra
+                console.log(listWebAppItemsArray[i].name)
+                var respond = prompt('The property ' + listWebAppItemsArray[i].name + ' was not found on vebra, do you want to delete the item? (y/n) ' );
+              if (respond.toLowerCase() == 'y'){
+              	disableItems.push(listWebAppItemsArray[i].id)
+              }
+                }
+        }
+       if (updateProperties.length > 0){
+       	updatePropertiesFunction(updateProperties)
+       }
+       if (disableItems.length > 0){
+           disableItemsFunction(disableItems);
+       }
+       
+       // check vebra items against web app items 
+   for (var i = 0; i < vebraArray.length; i++){
+   		var match = false;
+       for (var j = 0; j < listWebAppItemsArray.length; j++){
+       	if(vebraArray[i].vaddress == listWebAppItemsArray[j].name){
+                	match = true;
+                    j = listWebAppItemsArray.length;
+        }}
+           if (match == false){
+               console.log('new item to add ' + vebraArray[i].vaddress ) // new item to add to web app items 
+               newItems.push(vebraArray[i].vvebraID)
+                }
+                
+       
+   }
+       // add new web app items function -- retrieves property id from newItems array   
+       function addWebAppItems(){
+           console.log('addNewItem')
+        $.get('http://james.wsinetexpert.com/' + '?property=' + newItems[addCounter], function(data) {
+
+        }).done(function(data) {
+        	addCounter = addCounter + 1;
+            var addDetails = data;
+            var variables = variablesFunction(addDetails);
+            addWebAppItemFunction(variables)
+            if (addCounter < newItems.length){
+            	addWebAppItems()
+            }
+        })
+       }
+       if (newItems.length > 0){
+       addWebAppItems()
+       }
+   
+   
+   })
+   listWebAppItems.fail(function (jqXHR) {
+   console.log("Request failed.");
+   console.log("Error code: " + jqXHR.status);
+   console.log("Error text: " + jqXHR.statusText);
+   console.log("Response text: " + jqXHR.responseText)
+   })
+       
+     
+   
+   } // end of check for new properties function
+   function variablesFunction(details, lastChangedDate) {
+       //console.log($(details).find('property').prop('id'))
+       function statusFunction() {
+           var webstatus = $(details).find('web_status').text();
+           switch (webstatus) {
+               case '0':
+                   return 'For Sale'
+                   break;
+               case '1':
+                   return 'Under Offer'
+                   break;
+               case '2':
+                   return 'Sold'
+                   break;
+               case '3':
+                   return 'Sold subject to contract'
+                   break;
+               case '4':
+                   return 'For sale by auction'
+                   break;
+
+               default:
+                   return 'Other'
+
+           }
+       };
+
+       function pFunction() {
+           var paragraphs = $(details).find('paragraphs');
+           var paragraphz = ''
+           paragraphs.children().each(function() {
+               var dis = $(this)
+               var firstPart = $(dis).find('name').text() + ' ';
+
+               function secondPartFunction() {
+
+                   if ($(dis).find('dimensions imperial').text() == '') {
+                       return $(dis).children('text').text();
+                   } else {
+                       return $(dis).find('dimensions imperial').text() + ' ' + $(dis).children('text').text();
+                   }
+
+               }
+               secondPart = secondPartFunction();
+
+               paragraphz = paragraphz + '<p>' + firstPart + secondPart + '</p>'
+           })
+           return paragraphz
+       }
+   
+       date = lastChangedDate + ' '
+       date = date.split('T');
+       date = date[0]
+       var status = statusFunction(),
+           description = pFunction(),
+           type = $(details).find('type').text(),
+           images = $(details).find('files'),
+           imagesCounter = 0,
+           imageArray = [],
+           overallAddress = $(details).find('address'),
+           address = $(overallAddress).find('name').text() + ' ' + $(overallAddress).find('street').text(),
+           city = $(overallAddress).find('town').text(),
+           county = $(overallAddress).find('county').text(),
+           postcode = $(overallAddress).find('postcode').text(),
+           price = $(details).find('price').text(),
+           longitude = $(details).find('longitude').text(),
+           latitude = $(details).find('latitude').text(),
+           bedrooms = $(details).find('bedrooms').text(),
+           receptions = $(details).find('receptions').text(),
+           bathrooms = $(details).find('bathrooms').text(),
+           parking = $(details).find('parking').text(),
+           garden = $(details).find('garden').text(),
+           vebraID = $(details).find('property').prop('id'),
+           lastChanged = date,
+           smallDesc = $(details).find('description').text()
+           
+       images.children().each(function() {
+           imageArray.push($(this).find('url').text());
+          
+       })
+       return variables = {
+               vstatus: status,
+               vdescription: description,
+               vtype: type,
+               vimageArray: imageArray,
+               vaddress: address,
+               vcity: city,
+               vcounty: county,
+               vpostcode: postcode,
+               vprice: price,
+               vlongitude: longitude,
+               vlatitude: latitude,
+               vbedrooms: bedrooms,
+               vreceptions: receptions,
+               vbathrooms: bathrooms,
+               vparking: parking,
+               vgarden: garden,
+           vvebraID:vebraID,
+           vlastChanged:lastChanged,
+           vsmallDesc:smallDesc
+
+
+       }
+          
+   }// end of variables function
+
+        function addWebAppItemFunction(variables) {
+           for (var i = 0; i < 16 - variables.vimageArray.length; i++) {
+               variables.vimageArray.push('')
+           }
+       var weight = parseInt(variables.vprice)
+           var addWebAppItem = $.ajax({
+               url: "/api/v2/admin/sites/current/webapps/"+ webAppName +"/items",
+               type: "POST",
+               headers: {
+                   "Authorization": access_token
+               },
+               contentType: "application/json",
+               data: JSON.stringify({
+                   "name": variables.vaddress,
+                   "description": variables.vdescription,
+                   "address": variables.vaddress,
+                   "city": variables.vcity,
+                   "state": variables.vcounty,
+                   "zipCode": variables.vpostcode,
+                   "country": "GB",
+                                      "weight":weight,
+                   "fields": {
+                       "price": variables.vprice,
+                       "longitude": variables.vlongitude,
+                       "latitude": variables.vlatitude,
+                       "bedrooms": variables.vbedrooms,
+                       "receptions": variables.vreceptions,
+                       "bathrooms": variables.vbathrooms,
+                       "parking": variables.vparking,
+                       "garden": variables.vgarden,
+                       "type": variables.vtype,
+                       "status": variables.vstatus,
+                       "photo 1": variables.vimageArray[0],
+                       "photo 2": variables.vimageArray[1],
+                       "photo 3": variables.vimageArray[2],
+                       "photo 4": variables.vimageArray[3],
+                       "photo 5": variables.vimageArray[4],
+                       "photo 6": variables.vimageArray[5],
+                       "photo 7": variables.vimageArray[6],
+                       "photo 8": variables.vimageArray[7],
+                       "photo 9": variables.vimageArray[8],
+                       "photo 10": variables.vimageArray[9],
+                       "photo 11": variables.vimageArray[10],
+                       "photo 12": variables.vimageArray[11],
+                       "photo 13": variables.vimageArray[12],
+                       "photo 14": variables.vimageArray[13],
+                       "photo 15": variables.vimageArray[14],
+                                      "small description":variables.vsmallDesc
+
+                   }
+
+               })
+           });
+
+           addWebAppItem.done(function(msg) {
+               console.log("Request successful");
+               console.log(msg);
+               log('added item: ' + variables.vaddress)
+           });
+           addWebAppItem.fail(function(jqXHR) {
+               console.log("Request failed. Error code: " + jqXHR.status);
+           });
+
+       }
+       
+       
+       
+   $('#button').on('click', function() {
+
+
+   $.get('http://james.wsinetexpert.com/', function(data) {
+
+
+
+   }).done(function(data) {
+       j = data;
+       console.log(j)
+       var prop = $(j).find('property');
+       prop.each(function() {
+           propID.push(object = {
+                       
+                       id:$(this).children('prop_id').text(),
+               lastChanged:$(this).children('lastchanged').text()
+       
+       }
+                )
+       });
+       console.log(propID)
+       var detailsCounter = 0;
+
+       if (addAllItems) {
+
+           function propertyDetailsFunc() {
+
+               $.get('http://james.wsinetexpert.com/' + '?property=' + propID[detailsCounter].id, function(data) {
+
+               }).done(function(data) {
+                   log('got property details with id of ' + propID[detailsCounter].id)
+                   detailsCounter = detailsCounter + 1;
+
+                   detailz = data;
+                   
+                   var variables = variablesFunction(detailz);
+                   // add web app item
+                   addWebAppItemFunction(variables)
+
+                   if (detailsCounter < propID.length) {
+                       propertyDetailsFunc();
+                   }
+
+                   /* end of .done function */
+               })
+
+
+               /* end of property details function */
+           }
+           propertyDetailsFunc();
+           /* end of add all items function */
+       }
+        if (updateItems) {
+           var updateCounter = 0;
+var checkForNewPropertiesArray = []
+    
+           function updatePropertiesFunc() {
+               $.get('http://james.wsinetexpert.com/' + '?property=' + propID[updateCounter].id, function(data) {
+
+               }).done(function(data) {
+                   log('got property details with id of ' + propID[updateCounter].id)
+                    detailz = data;
+                   var variables = variablesFunction(detailz, propID[updateCounter].lastChanged);
+                   
+                             
+                   checkForNewPropertiesArray.push(variables)
+                  updateCounter = updateCounter + 1;
+                   if (updateCounter == propID.length){
+                       console.table(checkForNewPropertiesArray)
+                   checkForNewPropertiesFunction(checkForNewPropertiesArray);
+                   }
+                   
+   
+   
+                  
+                   //variables.vaddress
+                   if (updateCounter < propID.length) {
+                       updatePropertiesFunc();
+}
+})
+           }
+             updatePropertiesFunc();
+        }
+   
+
+   
+   }).fail(function(e) {
+   console.log(e)
+   alert('Error please refresh the page and try again ' + e)
+   })
+
+        })      
+    </script>
+</body>
+
+</html>

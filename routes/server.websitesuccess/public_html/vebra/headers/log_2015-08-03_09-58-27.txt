@@ -1,0 +1,12 @@
+HTTP/1.1 200 OK
+Date: Mon, 03 Aug 2015 08:58:27 GMT
+Server: Microsoft-IIS/6.0
+X-Powered-By: ASP.NET
+X-AspNet-Version: 4.0.30319
+Token: CTEPCXDAKLREGEOAANISEWJYLHTSKWEGVFNZNPOLQGZKRYFUMP
+Set-Cookie: ASP.NET_SessionId=jsdgjumgciedy2amurfrfanb; path=/; HttpOnly
+Last-Modified: Fri, 31 Jul 2015 16:31:04 GMT
+Cache-Control: private
+Content-Type: text/xml; charset=utf-8
+Content-Length: 7522
+

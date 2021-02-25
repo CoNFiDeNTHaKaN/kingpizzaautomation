@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Borland-Vebra Hook up - Docs</title>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600|Inconsolata' rel='stylesheet' type='text/css'>
+<style>
+    body {font-family: 'Open Sans', sans-serif; font-size:13px; max-width: 960px;}
+    pre, code {
+        font-family: 'Inconsolata', serif;
+        font-size: 1.2em;
+        padding: 10px;
+        background: #A4B5D2;
+        color: white;
+        display: inline-block;
+        margin: 0;
+    }
+    th, td {vertical-align: top;}
+
+</style>
+</head>
+
+<body>
+<h1>Docs for vebra hook up script</h1>
+<p>The 'Vebra Hook Up' script manages connections to the Vebra API through a PHP script which returns XML based on a number of variables.</p>
+<h2>Property List</h2>
+<p>Calling the plain URL http://james.wsinetexpert.com/ will return a simple XML list of all listed properties. </p>
+<h2>Possible Options</h2>
+<table border="0" cellspacing="0" cellpadding="5" width="800" >
+  <thead>
+    <tr>
+      <th width="160">Attribute</th>
+      <th width="173">Possible value</th>
+      <th width="467">Result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>?action</td>
+      <td>=destroy</td>
+      <td>Destroys the current session. Useful for debugging. Won't normally allow a new token to be created as Zebra only distribute one an hour.</td>
+    </tr>
+    <tr>
+      <td>?property</td>
+      <td>=[propertyidnumber]</td>
+      <td>Returns the detailed information for the property ID supplied.</td>
+    </tr>
+    <tr>
+      <td>?token</td>
+      <td>=[token(before-base64)]</td>
+      <td>Overrides the stored session token with the token specified and saves the token in the session for the future. This function runs before the actual vebra curl so if a token is specified the script will still run straight away.</td>
+    </tr>
+  </tbody>
+</table>
+<h2>Tag descriptions and schema</h2>
+<p>The tags and layout is followed exactly as documented by vebra at</p>
+<p>http://webservices.vebra.com/export/xsd/v8/Client_Feed_API_v8_UserGuide.pdf</p>
+<p>There are <strong>TWO exceptions</strong>. The script automatically appends a special tag as a child of the top level parent called 'session_age' this indicates an approximate number of minutes <strong>since  the current Vebra access token was opened</strong>.</p>
+<p><code>&lt;session_age&gt;Approximately | 06:27&lt;/session_age&gt;</code></p>
+<p>The script also generates a tag called 'token_used'with value being the currently used access token.</p> 
+If the token being used is the same tag from the session that we've used before it will be apended with &quot;_b64&quot;
+to indicate the fact that this value is already base64 encoded and couldn't be used for things like the <strong>?token= </strong>setting in the url. If the token being used is newly generated there is no appended information on the tag value and token is instead displayed in its raw format.
+<h2>Features</h2>
+<p>The script will automatically create a new token if the session age is more than an hour or if the session token variable has been destroyed or removed.</p>
+<p>The script will save a copy of the headers in the root of the directory each time it tries to produce a new token. Files are saved with the name format <pre>headers_2014-09-09_12-11-41.txt</pre> as in <pre>headers_YYYY-MM-DD_HH-mm-ss.txt</pre> </p>
+<p>&nbsp;</p>
+<h2>Changes</h2>
+<ul>
+  <li>session age is now the time since the session opened and the current token was created</li>
+  <li>The most recent successful token is store in <strong>token.txt</strong></li>
+</ul>
+</body>
+</html>

@@ -1,0 +1,17 @@
+.slim-view {
+  .header {
+    height: 80px;
+
+    nav {
+      display: none;
+    }
+  }
+
+  main {
+    padding-top: 80px;
+  }
+
+  .footer {
+    display: none;
+  }
+}

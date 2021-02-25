@@ -1,0 +1,84 @@
+.homepage {
+    &__showcase {
+        background: url("/images/build/homepage-bg.jpg") no-repeat center center /cover;
+        padding: 150px 40px 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        @media screen and (max-width: 768px) {
+            align-items: flex-start;
+            padding: 80px 15px 0;
+            height: auto;
+            position: relative;
+
+            &:after {
+                content: '';
+                position: absolute;
+                bottom: -1px;
+                left: -1px;
+                right: -1px;
+                height: 50px;
+                background: white;
+                z-index: 0;
+            }
+
+            .modal {
+                position: relative;
+                z-index: 1;
+            }
+        }
+    }
+
+    main {
+        padding-top: 0;
+        @media screen and (max-width: 768px) {
+            padding-top: 0;
+        }
+
+        .favourites {
+            margin: 30px 0 80px;
+
+            h2 {
+                margin-bottom: 0;
+            }
+
+            p {
+                margin-top: 0;
+            }
+
+            a {
+                margin: 20px 0;
+                display: block;
+                text-decoration: none;
+                line-height: 1.6;
+            }
+            @media screen and (max-width: 768px) {
+                margin-top: 10px;
+                margin-bottom: 40px;
+
+                .col-6 {
+                    padding-left: 10px;
+                    padding-right: 10px;
+                }
+
+                .row {
+                    margin-left: -10px;
+                    margin-right: -10px;
+                }
+
+                a {
+                    font-weight: bold;
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}
+
+section.content.kebab-bg {
+    background: url("/images/build/homepage-bg.jpg") no-repeat center center/cover;
+    @media screen and (max-width: 768px) {
+        padding-bottom: 40px;
+    }
+}

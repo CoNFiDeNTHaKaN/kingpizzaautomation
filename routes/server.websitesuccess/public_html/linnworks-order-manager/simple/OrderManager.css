@@ -1,0 +1,127 @@
+.order-manager .edit{display: none}
+
+.order-manager tr.editable .view{
+  display: none !important;
+}
+.order-manager tr.editable .edit{
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  justify-content: flex-start;
+}
+input.input--day, input.input--month, input.input--year {
+    width: 30px;
+    text-align: center;
+    padding: 0 4px;
+    line-height: 36px;
+    font-size: 15px !important;
+    height: 36px;
+    margin: 0 4px;
+}input.input--year {width: 70px;}
+
+textarea.input--message {
+    width: calc( 100% - 20px );
+    padding: 8px 10px;
+    border-radius: 4px;
+    margin: 0;
+    font-family: Monaco,Menlo,Consolas,courier new,monospace;
+    resize: vertical;
+    min-height: 10em;
+}
+
+td.order-info {
+    font-size: 14px;
+    line-height: 26px;
+}
+
+td.order-date {
+    font-size: 16px;
+    /* text-align: center; */
+}
+
+.order-info p {
+    margin: 0;
+}
+
+.order-message pre {
+    margin: 0;
+}
+
+.order-manager td {
+    padding: 10px 5px;
+}
+
+
+.order-info{
+  width: 170px;
+}
+.order-date{
+  width: 150px;
+}
+.order-save{
+  width: auto;
+  height: 40px;
+}
+.order-manager tr.editable td.order-save div.edit{
+    height: 100%;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+}
+.order-manager tbody {
+    background: white;
+}
+
+.order-manager tbody td {
+    vertical-align: top;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+.order-manager tr:nth-child(2n) td {
+    background: #fbfbfb;
+}
+.order-manager tbody tr.editable td {
+    background: #ffffea;
+}
+.order-manager th {
+    text-align: left;
+    line-height: 30px;
+    background-color: #f9f9f9;
+    color: #555;
+    border: solid 1px #ddd;
+    padding: 0 5px;
+}
+.order-manager {
+    padding: 20px;
+}
+.order-manager tbody tr {
+    cursor: pointer;
+}
+.order-manager tr:hover td {
+    background: #f5f5f5;
+}
+.order-manager * {
+    user-select: none;
+}
+
+.order-manager__message {
+    background: #7390b2;
+    color: white;
+    padding: 5px 8px;
+    border-radius: 4px;
+    margin-bottom: 2em;
+    line-height: 2em;
+    opacity: 1;
+    transition: opacity 0.3s ease-out;
+}
+
+.order-manager__message:before {
+    content: 'Status : ';
+    font-weight: bold;
+    color: whitesmoke;
+}
+
+p.order-manager__message:empty {
+    opacity: 0;
+}

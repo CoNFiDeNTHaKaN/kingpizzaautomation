@@ -1,0 +1,95 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Crown Properties ExpertAgent - Docs</title>
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700,600|Inconsolata' rel='stylesheet' type='text/css'>
+<style>
+    body {font-family: 'Open Sans', sans-serif; font-size:13px; max-width: 960px;}
+    pre, code {
+        font-family: 'Inconsolata', serif;
+        font-size: 1.2em;
+        padding: 10px;
+        background: #A4B5D2;
+        color: white;
+        display: inline-block;
+        margin: 0;
+    }
+    th, td {vertical-align: top;}
+
+</style>
+</head>
+
+<body>
+<h1>Docs for Crown Properties ExpertAgent link</h1>
+<p>The 'Crown Properties ExpertAgent link' script manages a connection to the Expert Agent FTP through a PHP script which returns XML based on a file variable.</p>
+<h2>File List</h2>
+<p>Calling the plain URL <a href="http://server.websitesuccess.co.uk/crown/?file=list">http://server.websitesuccess.co.uk/crown/?file=list</a> will return a plain text array of available files. </p>
+<h2>Possible Options</h2>
+<table border="0" cellspacing="0" cellpadding="5" width="800" >
+  <thead>
+    <tr>
+      <th width="90">Attribute</th>
+      <th width="173">Possible value</th>
+      <th width="527">Result</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>?file</td>
+      <td>=list</td>
+      <td>List all available files in the root directory.</td>
+    </tr>
+    <tr>
+      <td>?file</td>
+      <td>=[filename]</td>
+      <td>Returns the XML contents of the specified file.</td>
+    </tr>
+  </tbody>
+</table>
+<h2>Possible Responses</h2>
+<p>Successful file return (or file listing) is the only thing that will return a <b>200</b>.</p>
+<p>Every other response will be considered an issue. Error messages with the <b>system</b> rather than with your input will return a <b>202</b> (request accepted), but then an error message.
+  Error message always follow the format of 'ERROR : <b>##### #####</b>' where '<b>##### #####</b>' is a more detailed response. Information of the meaning of these messages can be found in the table below.</p>
+<table border="0" cellspacing="0" cellpadding="5" width="800" >
+  <thead>
+    <tr>
+      <th width="90">Status code</th>
+      <th width="173">Response</th>
+      <th width="527">Reason</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>200</td>
+      <td colspan="2">Successfully retrieved file, or list of available files (if ?file=list). Returns the XML contents of the specified file.</td>
+    </tr>
+    <tr>
+      <td>202</td>
+      <td>ERROR : cannot connect</td>
+      <td>There has been an issue with the FTP connection to the host. Host may have changed or fallen over.</td>
+    </tr>
+    <tr>
+      <td>202</td>
+      <td>ERROR : cannot login</td>
+      <td>There has been an issue with the FTP authentication. The host can be connected to but authentication fails. Credentials may have changed.</td>
+    </tr>
+    <tr>
+      <td>202</td>
+      <td>ERROR : cannot get file</td>
+      <td>FTP connected and authenticated but couldn't get file. File may be corrupt, missing or locked.</td>
+    </tr>
+    <tr>
+      <td>400</td>
+      <td colspan="2">Please use file parameter to request file or set file as "list" to return all files in root directory.</td>
+    </tr>
+  </tbody>
+</table>
+<p>&nbsp;</p>
+<h2>Changes</h2>
+<ul>
+  <li>None</li>
+</ul>
+</body>
+</html>

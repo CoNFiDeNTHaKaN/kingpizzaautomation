@@ -1,0 +1,70 @@
+.manager-view {
+  .hide-manager {
+    display: none !important;
+  }
+
+  .header {
+    height: 100px;
+  }
+
+  main {
+    padding-top: 100px;
+  }
+
+  .edit-menu {
+    display: flex;
+
+    .input-price {
+      padding-left: 1.6em !important;
+      background: transparent url("/images/build/pound-sign-solid.svg") no-repeat left 0.5em center /0.8em;
+    }
+
+    &__nav {
+      width: 320px;
+    }
+
+    &__menu {
+      width: 100%;
+    }
+
+    input {
+      font-family: inherit;
+      line-height: 1.4em;
+      height: 1.4em;
+      padding: 1em 0.4em;
+      border: none;
+    }
+
+    label ~ input,
+    td input {
+      border: 1px solid #cccccc;
+      border-radius: 2px;
+    }
+
+    &__group {
+      padding: 20px 0;
+      border-bottom: 1px solid grey;
+
+      &__info {
+        font-size: 26px;
+      }
+
+      &__item {
+        padding: 10px;
+        border-bottom: 1px dashed;
+
+        &__info {
+          display: flex;
+        }
+
+        &__size {
+          display: flex;
+        }
+
+        &__option {
+          padding: 15px;
+        }
+      }
+    }
+  }
+}
