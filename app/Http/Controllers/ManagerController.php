@@ -150,7 +150,7 @@ class ManagerController extends Controller
             $restaurant->addMediaFromRequest('restaurant.cover')->toMediaCollection('cover');
         }
 
-        if ($request->has('password')) {
+        if ($request->password!="") {
           $user->update([
             'password' => Hash::make($request->password)
           ]);

@@ -16,6 +16,7 @@
             <span class="restaurant-order__item__name"><b>{{$orderItem['name']}}</b></span>
             <span class="restaurant-order__item__size">{{$orderItem['sizes']}}</span>
             <span class="restaurant-order__item__price">&pound; @money_format($orderItem['total_price'])</span>
+            <small>{{$orderItem['description']}}</small>
             @if(array_key_exists('options',$orderItem))
             @foreach ($orderItem['options'] as $option)
               @php
