@@ -190,7 +190,7 @@
                           <div class="score"><span>Rating<em>{{$restaurant->rating_count}} Reviews</em></span><strong>{{$restaurant->rating}}</strong></div>
                           </div>
                         <h1>{{$restaurant->name}}</h1>
-                          {{$restaurant->address_line_1}} 
+                        {{$restaurant->address_line_1}}, {{$restaurant->address_line_2}}, {{$restaurant->address_postcode}}
                       </div>
                       
                   </div>
