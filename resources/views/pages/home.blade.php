@@ -79,11 +79,11 @@
 			<div class="social">
 	<ul class="social-btn">
 		<li class="list-heading">Follow Us </li>
-		<li><a href="#" target="_blank"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
-		<li><a href="#" target="_blank"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
-	    <li><a href="#" target="_blank"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
-	    <li><a href="#" target="_blank"><i class="fab fa-youtube" aria-hidden="true"></i></a></li>
-		<li><a href="#" target="_blank"><i class="fab fa-tripadvisor" aria-hidden="true"></i></a></li>
+		<li><a href="https://www.facebook.com/eatkebabonline" target="_blank"><i class="fab fa-facebook-f" aria-hidden="true"></i></a></li>
+		<li><a href="https://twitter.com/eatkebabonline/" target="_blank"><i class="fab fa-twitter" aria-hidden="true"></i></a></li>
+	    <li><a href="https://www.instagram.com/eatkebabonline/" target="_blank"><i class="fab fa-instagram" aria-hidden="true"></i></a></li>
+	    <li><a href="https://www.youtube.com/channel/UC3oSJI2wRSrv8Ow0lMS8jUw/featured" target="_blank"><i class="fab fa-youtube" aria-hidden="true"></i></a></li>
+		<!--<li><a href="#" target="_blank"><i class="fab fa-tripadvisor" aria-hidden="true"></i></a></li>-->
 	</ul>
 </div>
 </div>
