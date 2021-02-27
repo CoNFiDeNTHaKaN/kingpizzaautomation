@@ -45,13 +45,13 @@
     <div class="row opt_order mb-5">
         <div class="col-6">
             <label class="container_radio">Delivery
-                <input type="radio" value="option1" name="opt_order" onclick="updateFulfilmentMethod('delivery')" {{$basket->fulfilment_method=='delivery' ? 'checked' : ''}} {{$basket->restaurant->delivery_now ? '' : 'disabled'}}>
+                <input type="radio" value="option1" name="opt_order" onclick="updateFulfilmentMethod('delivery')" {{$basket->restaurant->delivery_now ? '' : 'disabled'}}>
                 <span class="checkmark"></span>
             </label>
         </div>
         <div class="col-6">
             <label class="container_radio">Take away
-                <input type="radio" value="option1" name="opt_order" onclick="updateFulfilmentMethod('collection')" {{$basket->fulfilment_method=='collection' ? 'checked' : ''}} {{$basket->restaurant->order_now ? '' : 'disabled'}}>
+                <input type="radio" value="option1" name="opt_order" onclick="updateFulfilmentMethod('collection')"  {{$basket->restaurant->order_now ? '' : 'disabled'}}>
                 <span class="checkmark"></span>
             </label>
         </div>

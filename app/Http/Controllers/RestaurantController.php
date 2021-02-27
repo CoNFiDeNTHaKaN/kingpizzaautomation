@@ -53,6 +53,7 @@ class RestaurantController extends Controller
         if(Auth::check()){
             if($request->hasCookie('eko_basket_id')){
                 $basket=Basket::where('hash', $request->cookie('eko_basket_id'))->first();
+                $basket->update(['fulfilment_method' => null]);
                 if($basket->restaurant->id!=$restaurant->id){
                     $might_already_exist = true;
                 do {
@@ -64,7 +65,7 @@ class RestaurantController extends Controller
                     'contents' => [],
                     'user_id' => Auth::id(),
                     'restaurant_id' => $restaurant->id,
-                    'fulfilment_method' => $restaurant->delivery_now ? 'delivery' : 'collection'
+                    
                 ]);
                 }
             }
@@ -79,7 +80,7 @@ class RestaurantController extends Controller
                     'contents' => [],
                     'user_id' => Auth::id(),
                     'restaurant_id' => $restaurant->id,
-                    'fulfilment_method' => $restaurant->delivery_now ? 'delivery' : 'collection'
+                    
                 ]);
             }
         }else{
@@ -95,7 +96,7 @@ class RestaurantController extends Controller
                     'hash' => $new_hash,
                     'contents' => [],
                     'restaurant_id' => $restaurant->id,
-                    'fulfilment_method' => $restaurant->delivery_now ? 'delivery' : 'collection'
+                    
                 ]);
                 }
             }
@@ -109,7 +110,7 @@ class RestaurantController extends Controller
                     'hash' => $new_hash,
                     'contents' => [],
                     'restaurant_id' => $restaurant->id,
-                    'fulfilment_method' => $restaurant->delivery_now ? 'delivery' : 'collection'
+                    
                 ]);
             }
         }
