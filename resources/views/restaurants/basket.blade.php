@@ -56,6 +56,24 @@
             </label>
         </div>
     </div>
+    @if(!$basket->restaurant->delivery_now)
+    <hr>
+    <div class="row">
+    <div class="col-12">
+    <b style="color:red">Restaurant is not currently taking delivery orders.</b>
+    </div>
+    </div>
+    <hr>
+    @endif
+    @if(!$basket->restaurant->order_now)
+    <hr>
+    <div class="row">
+    <div class="col-12">
+    <b style="color:red">Restaurant is not currently taking take away orders.</b>
+    </div>
+    </div>
+    <hr>
+    @endif
     <!-- /dropdown -->
     <div class="btn_1_mobile">
 	<a href="#0" class="back-menu" onclick="$('.box_order').hide()">Back To Menu</a>
