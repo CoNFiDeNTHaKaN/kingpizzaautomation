@@ -56,11 +56,17 @@
             </label>
         </div>
     </div>
+    @php
+    $w = date("w");
+    @endphp
     @if(!$basket->restaurant->delivery_now)
     <hr>
     <div class="row">
     <div class="col-12">
-    <b style="color:red">Restaurant is not currently taking delivery orders.</b>
+    <b style="color:red">Restaurant is not currently taking delivery orders.</b><br>
+    Delivery Hours: <br>
+    {{$restaurant->formatted_hours($restaurant->delivery_hours[$w][0])}} - {{$restaurant->formatted_hours($restaurant->delivery_hours[$w][1])}}
+
     </div>
     </div>
     <hr>
@@ -69,7 +75,9 @@
     <hr>
     <div class="row">
     <div class="col-12">
-    <b style="color:red">Restaurant is not currently taking take away orders.</b>
+    <b style="color:red">Restaurant is not currently taking take away orders.</b><br>
+    Take Away Hours: <br>
+    {{$restaurant->formatted_hours($restaurant->order_hours[$w][0])}} - {{$restaurant->formatted_hours($restaurant->order_hours[$w][1])}}
     </div>
     </div>
     <hr>
