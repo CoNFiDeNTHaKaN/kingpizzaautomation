@@ -49,12 +49,13 @@
         <input class="form-control" type="password" name="password" id="password" placeholder="Password">
         <i class="icon_lock_alt"></i>
       </div>
+      <!--
       <div class="form-group">
 		    <div class="text-center" style="width:100%;">{!!$captcha!!}</div>
         <input type="text" class="form-control mt-2" name="captcha">
         
       </div>
-      
+      -->
       <button type="submit" class="btn_1 gradient full-width">Register Now!</button>
       <div class="text-center mt-2"><small>Already have an acccount? <strong><a href="{{ route('user.login') }}">Sign In</a></strong></small></div>
     </form>

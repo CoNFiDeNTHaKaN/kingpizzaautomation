@@ -19,7 +19,7 @@ class UserController extends Controller
       $validatedData = $request->validate([
         "first_name" => "required|min:2",
         "last_name" => "required|min:2",
-		    "captcha" => "required|captcha",
+		    //"captcha" => "required|captcha",
         "email" => [
           "required",
           "email",
@@ -33,12 +33,17 @@ class UserController extends Controller
 	  );
 	  
 
-      $user = User::create([
+      if($user = User::create([
           'first_name' => $request->first_name,
           'last_name' => $request->last_name,
           'email' => $request->email,
           'password' => Hash::make($request->password)
-      ]);
+      ])) {
+        Auth::login($user);
+        return redirect()->route('home');
+      }
+      
+
 
       if($user->exists() && $user->wasRecentlyCreated) {
         Auth::login($user, true);
