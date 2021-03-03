@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 use DB;
+use Cookie;
 
 use Spatie\MediaLibrary\HasMedia\HasMedia;
 use Spatie\MediaLibrary\HasMedia\HasMediaTrait;
@@ -92,6 +93,20 @@ class Restaurant extends Model implements HasMedia
     ->havingRaw('distance < delivery_range')
     ->orderBy("distance")
     ->setBindings([$lat, $lng, $lat]);
+    }
+
+    public function scopePostCode($query, $post_code)
+    {
+        $post_code=substr($post_code , 0 , 6);
+        $post_codes=PostCode::where('post_code' , $post_code)->get();
+        $restaurants=$query->get()->filter(function ($item) use ($post_codes){
+            foreach($post_codes as $postcode){
+                if($item->id == $postcode->restaurant_id)
+                return true;
+            }
+            return false;
+        });
+        return $restaurants;
     }
 
     public function setNameAttribute($value)
@@ -194,4 +209,18 @@ class Restaurant extends Model implements HasMedia
 		}
 						
 	}
+
+    public function getDeliveryFeeAttribute(){
+        $post_codes=PostCode::where('restaurant_id',$this->id)->get();
+        if(count($post_codes)==0){
+            return $this->attributes['delivery_fee'];
+        }else{
+            return $post_codes->first(function($item){
+                $post_code=Cookie::get('eko_postcode');
+                $post_code=substr($post_code , 0 , 6);
+                $post_code=strtolower($post_code);
+                return $item->post_code==$post_code;
+            })->delivery_fee ?? $this->attributes['delivery_fee'];
+        }
+    }
 }

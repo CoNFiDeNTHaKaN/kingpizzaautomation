@@ -32,10 +32,12 @@ class RestaurantController extends Controller
                 return redirect()->route('home')->withErrors('Sorry we couldn\'t locate that postcode');
             }
 
-            $userLat = $postcodeDetails->data->latitude;
+            /*$userLat = $postcodeDetails->data->latitude;
             $userLng = $postcodeDetails->data->longitude;
 
-            $restaurants = Restaurant::withinRange($userLat, $userLng)->get();
+            $restaurants = Restaurant::withinRange($userLat, $userLng)->get();*/
+
+            $restaurants = Restaurant::PostCode($request->postcode);
 
             return view('restaurants.list-view', ['restaurants'=>$restaurants]);
         }
@@ -50,7 +52,7 @@ class RestaurantController extends Controller
             abort(404);
         }
 
-        if(Auth::check()){
+        if(Auth::check()){ 
             if($request->hasCookie('eko_basket_id')){
                 $basket=Basket::where('hash', $request->cookie('eko_basket_id'))->first();
                 $basket->update(['fulfilment_method' => null]);
