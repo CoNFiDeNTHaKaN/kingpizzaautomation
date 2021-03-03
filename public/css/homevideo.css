@@ -70,6 +70,7 @@
 .custom-search-input{
 	padding: 16px;
 }
+
 .custom-search-input button[type='submit']{
 	height: 72px;
 	font-size: 24px;
@@ -77,6 +78,22 @@
 }
 .custom-search-input input{
 	height: 72px;
+}
+.custom-search-input input::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color:#5e6b77;
+  font-weight: 300;
+}
+.custom-search-input input::-moz-placeholder { /* Firefox 19+ */
+  color:#5e6b77;
+  font-weight: 300;
+}
+.custom-search-input input:-ms-input-placeholder { /* IE 10+ */
+  color:#5e6b77;
+  font-weight: 300;
+}
+.custom-search-input input:-moz-placeholder { /* Firefox 18- */
+  color:#5e6b77;
+  font-weight: 300;
 }
 .hero_single .search_trends h5{
 	color:#fff;

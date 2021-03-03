@@ -43,7 +43,7 @@
                       <div class="row no-gutters custom-search-input">
                           <div class="col-lg-9">
                               <div class="form-group">
-                                  <input class="form-control no_border_r" name="postcode" type="text" value="{{ Cookie::get('eko_postcode') }}" id="autocomplete" placeholder="PO21 ---">
+                                  <input class="form-control no_border_r" name="postcode" type="text" value="{{ Cookie::get('eko_postcode') }}" id="autocomplete" placeholder="Type your postcode">
                               </div>
                           </div>
                           <div class="col-lg-3">
