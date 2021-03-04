@@ -9,14 +9,10 @@
       <h1>Contact Us</h1>
       <p>Our Company's contact info:</p>
       <p><b>Address:</b> <br>
-        1st floor<br>
-         15 high street
-        <br>
-        Bognor Regis
-        <br>
-        PO21 1RJ</p>
+      Courtwick Ln, Wick, Littlehampton, BN17 7TL</p>
       <p><b>Phone:</b>
-        <br> 01243 822 823</p>
+        <br> 0777 169 17 36
+        </p>
       <p><b>e-mail:</b>
         <br> info@eatkebabonline.co.uk</p>
     </div>
