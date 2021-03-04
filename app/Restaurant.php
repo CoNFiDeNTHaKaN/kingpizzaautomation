@@ -97,6 +97,10 @@ class Restaurant extends Model implements HasMedia
 
     public function scopePostCode($query, $post_code)
     {
+        if($post_code[4]!=" "){
+            $post_code[5]=$post_code[4];
+            $post_code[4]=" ";
+        }
         $post_code=substr($post_code , 0 , 6);
         $post_codes=PostCode::where('post_code' , $post_code)->get();
         $restaurants=$query->get()->filter(function ($item) use ($post_codes){
@@ -217,6 +221,10 @@ class Restaurant extends Model implements HasMedia
         }else{
             return $post_codes->first(function($item){
                 $post_code=Cookie::get('eko_postcode');
+                if($post_code[4]!=" "){
+                    $post_code[5]=$post_code[4];
+                    $post_code[4]=" ";
+                }
                 $post_code=substr($post_code , 0 , 6);
                 $post_code=strtolower($post_code);
                 return $item->post_code==$post_code;

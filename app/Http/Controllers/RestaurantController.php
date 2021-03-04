@@ -32,12 +32,12 @@ class RestaurantController extends Controller
                 return redirect()->route('home')->withErrors('Sorry we couldn\'t locate that postcode');
             }
 
-            $userLat = $postcodeDetails->data->latitude;
+            /*$userLat = $postcodeDetails->data->latitude;
             $userLng = $postcodeDetails->data->longitude;
 
-            $restaurants = Restaurant::withinRange($userLat, $userLng)->get();
+            $restaurants = Restaurant::withinRange($userLat, $userLng)->get();*/
 
-           // $restaurants = Restaurant::PostCode($request->postcode);
+           $restaurants = Restaurant::PostCode($request->postcode);
 
             return view('restaurants.list-view', ['restaurants'=>$restaurants]);
         }
