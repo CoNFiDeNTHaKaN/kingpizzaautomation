@@ -360,7 +360,15 @@ footer h3 {
 		min-width: 200px;
 	}
 }
-
+@media (max-height:400px){
+	.background-video {
+		min-height: 620px;
+	}
+	.hero_single.version_1{
+		position: relative;
+		min-height: 620px;
+	}
+}
 
 
 
