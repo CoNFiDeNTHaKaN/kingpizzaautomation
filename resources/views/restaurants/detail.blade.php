@@ -187,7 +187,7 @@
                   <div class="row">
                       <div class="col-xl-4 col-lg-5 col-md-6">
                           <div class="head">
-                          <div class="score"><span>Rating<em>{{$restaurant->rating_count}} Reviews</em></span><strong>{{$restaurant->rating}}</strong></div>
+                          <a href="#section-reviews">Click to see ratings<br><div class="score"><span>Rating<em>{{$restaurant->rating_count}} Reviews</em></span><strong>{{$restaurant->rating}}</strong></div></a>
                           </div>
                         <h1>{{$restaurant->name}}</h1>
                         {{$restaurant->address_line_1}}, {{$restaurant->address_line_2}}, {{$restaurant->address_postcode}}
