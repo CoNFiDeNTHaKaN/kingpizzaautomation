@@ -124,20 +124,20 @@
                   You don't have any saved addresses. You can save addresses <a href="{{route('user.savedAddresses')}}" target="_blank">here</a>.
                     <div class="form-group">
                         <label>Full Address</label>
-                        <input class="form-control" name="delivery[address_line_1]" value="{{old('delivery.address_line_1')}}" placeholder="Address Line 1">
-                        <input class="form-control" name="delivery[address_line_2]" value="{{old('delivery.address_line_2')}}" placeholder="Address Line 2">
+                        <input class="form-control" name="delivery[address_line_1]" value="{{old('delivery.address_line_1')}}" placeholder="House name (if there is one)">
+                        <input class="form-control" name="delivery[address_line_2]" value="{{old('delivery.address_line_2')}}" placeholder="House number and street name">
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>City</label>
-                                <input class="form-control" name="delivery[city]" value="{{old('delivery.city')}}" placeholder="City">
+                                <input class="form-control" name="delivery[city]" value="{{old('delivery.city')}}" placeholder="Town name">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Postal Code</label>
-                                <input class="form-control" name="delivery[postcode]" value="{{old('delivery.postcode')}}" placeholder="PO21">
+                                <label>Post Code</label>
+                                <input class="form-control" name="delivery[postcode]" value="{{old('delivery.postcode')}}" placeholder="Type your postcode">
                             </div>
                         </div>
                     </div>
@@ -229,20 +229,20 @@
 
                   <div class="form-group">
                     <label>Full Address</label>
-                    <input class="form-control" name="card_address_line_1" value="{{old('card_address_line_1')}}" placeholder="Address Line 1">
-                    <input class="form-control" name="card_address_line_2" value="{{old('card_address_line_2')}}" placeholder="Address Line 2">
+                    <input class="form-control" name="card_address_line_1" value="{{old('card_address_line_1')}}" placeholder="House name (if there is one)">
+                    <input class="form-control" name="card_address_line_2" value="{{old('card_address_line_2')}}" placeholder="House number and street name">
                   </div>
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>City</label>
-                        <input class="form-control" name="card_address_city" value="{{old('card_address_city')}}" placeholder="City">
+                        <input class="form-control" name="card_address_city" value="{{old('card_address_city')}}" placeholder="Town name">
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
-                        <label>Postal Code</label>
-                        <input class="form-control" name="card_address_postcode" value="{{old('card_address_postcode')}}" placeholder="PO21">
+                        <label>Post Code</label>
+                        <input class="form-control" name="card_address_postcode" value="{{old('card_address_postcode')}}" placeholder="Type your postcode">
                       </div>
                     </div>
                   </div>

@@ -85,6 +85,6 @@
     <!-- /dropdown -->
     <div class="btn_1_mobile">
 	<a href="#0" class="back-menu" onclick="$('.box_order').hide()">Back To Menu</a>
-        <a href="{{route('restaurants.checkout')}}" class="btn_1 gradient full-width mb_5">Go To Checkout</a>
+        <a href="{{route('restaurants.checkout')}}" class="btn_1 gradient full-width mt-1">Go To Checkout</a>
         <div class="text-center"><small>No money charged on this steps</small></div>
     </div>
