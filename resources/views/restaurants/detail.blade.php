@@ -799,6 +799,7 @@
 
   function updateFulfilmentMethod(to){
     fulfilment_method=to;
+    $("#order-modal").css("z-index","9999999");
     var modal=$("#order-modal");
     $.ajax('{{url('/ajax/updateBasket/')}}', 
       {
@@ -812,6 +813,19 @@
           _token : '{{csrf_token()}}'
           
         },
+        beforeSend: function() {
+          modal.modal('show');
+          modal.find('.modal-title').text("Removing From Basket");
+          modal.find('.modal-body').html("<div class='loading'></div>");
+          modal.find('.modal-body').css('margin','0 auto');
+        } ,
+        success: function (data,status,xhr) {
+          $("#basket").html(data);
+          $("#view_basket").text("View Basket("+basketItems.length+")");
+          setTimeout(function(){modal.modal('hide')}, 100);
+        },
+        error: function (jqXhr, textStatus, errorMessage) { // error callback 
+          }
   
       });
 

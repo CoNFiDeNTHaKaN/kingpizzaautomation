@@ -55,7 +55,10 @@ class RestaurantController extends Controller
         if(Auth::check()){ 
             if($request->hasCookie('eko_basket_id')){
                 $basket=Basket::where('hash', $request->cookie('eko_basket_id'))->first();
-                $basket->update(['fulfilment_method' => null]);
+                $basket->update([
+                    'fulfilment_method' => null,
+                    'user_id' => Auth::id()
+                    ]);
                 if($basket->restaurant->id!=$restaurant->id){
                     $might_already_exist = true;
                 do {

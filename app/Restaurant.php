@@ -205,22 +205,18 @@ class Restaurant extends Model implements HasMedia
 	public function formatted_hours($time){
 
 		$hour=$time[0].$time[1];
-		if($hour>12){
-			$hour=$hour-12;
-			return $hour.'.'.$time[2].$time[3].' pm';
-		}else{
-			return $hour.'.'.$time[2].$time[3].' am';
-		}
+		return $hour.'.'.$time[2].$time[3];
+
 						
 	}
 
     public function getDeliveryFeeAttribute(){
         $post_codes=PostCode::where('restaurant_id',$this->id)->get();
+        $post_code=Cookie::get('eko_postcode');
         if(count($post_codes)==0){
             return $this->attributes['delivery_fee'];
         }else{
-            return $post_codes->first(function($item){
-                $post_code=Cookie::get('eko_postcode');
+            return $post_codes->first(function($item) use ($post_code){
                 if($post_code[4]!=" "){
                     $post_code[5]=$post_code[4];
                     $post_code[4]=" ";
