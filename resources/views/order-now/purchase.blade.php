@@ -156,7 +156,7 @@
               <div class="main">
                 <div class="payment_select">
                   <label class="container_radio">Credit Card
-                    <input type="radio" value="card" name="paymentMethod" id="pay_card" onclick="showBilling()" checked>
+                    <input type="radio" value="card" name="paymentMethod" id="pay_card" onclick="showBilling()">
                     <span class="checkmark"></span>
                   </label>
                   <i class="icon_creditcard"></i>
@@ -171,7 +171,7 @@
                 </div>
 
                 
-                <div id="payment_credit">
+                <div id="payment_credit" style="display:none;">
                   <div id="card-errors" role="alert"></div>
 
                     <div style="background-color:#eceef2">
