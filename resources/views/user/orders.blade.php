@@ -20,7 +20,8 @@
                              | <b style="color:green">Successfully Paid</b>
                              @endif
                           @endif
-                           | Price: &pound;{{$order->basket->total}}
+                           | Price: &pound;{{$order->basket->total}}<br>
+                           <a href="{{route('restaurants.thanks',$order->id)}}">View status</a>
                         </div>
                       </div>
                       <div class="row" style="box-shadow: 5px 5px 18px #888888;">

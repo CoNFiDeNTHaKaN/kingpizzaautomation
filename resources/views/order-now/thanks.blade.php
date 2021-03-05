@@ -31,8 +31,8 @@
               </div>
               <h3>Great news! Your order is on its way to {{ $order->restaurant->name }}.</h3>
 			  <h4><b style="color:red;"> !!! Warning !!! <br> Please Check Your Email </b></h4>
-              <p>Once they've confirmed your order and the time it'll be ready you'll get an update by email, or keep this page open and it'll automatically refresh.</p>
-              <p><b>Order status</b> : {{ isset($order->predicted_time) ? 'Confirmed' : 'Awaiting confirmation' }}</p>
+              <p>Once your order has been accepted in store, you will receive an email to confirm your delivery time. Live updates will also appear here and will refresh automatically.</p>
+              <p><b>Order status</b> : {{ str_replace('_' , ' ' , $order->status->name) }}</p>
         @if ($order->collection)
           @if (strtotime($order->desired_time) < time())
             <p><b>Requested collection time</b> : ASAP</p>
@@ -50,7 +50,7 @@
         @endif
 
         <br>
-        <p><span class="t-12x">If you've got any questions about your order or need to speak to the restaurant it's best to speak to them - call <b>{{ $order->restaurant->name }}</b> on&nbsp;<b>{{ $order->restaurant->contact_number }}</b></span></p>
+        <p><span class="t-12x">If you have any questions about your order or if you didn't get confirmation email or need to speak to the restaurant it's best to speak to them - call <b>{{ $order->restaurant->name }}</b> on&nbsp; <br><b>{{ $order->restaurant->contact_number }}</b></span></p>
             </div>
                   </div>
               </div>
