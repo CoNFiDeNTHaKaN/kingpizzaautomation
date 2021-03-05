@@ -29,7 +29,7 @@
 @section('content')
 
 <main class="bg_gray pt-5">
-<form enctype="multipart/form-data" class="payment" method="post" action="{{ route('restaurants.pay') }}"> 
+<form enctype="multipart/form-data" class="payment" method="post" action="{{ route('restaurants.pay') }}" id='paymentForm'> 
     {{csrf_field()}}
   <div class="container margin_60_20">
     <div class="row justify-content-center">
@@ -337,7 +337,7 @@
                     
                     <input type="hidden" name="basket_id" value="{{ $basket->id }}">
                     <input type="hidden" name="basket_hash" value="{{ $basket->hash }}">
-                    <button type="submit" class="btn_1 gradient full-width mb_5">Order Now</button>
+                    <button type="submit" class="btn_1 gradient full-width mb_5" id="submitButton">Order Now</button>
                   
                   </div>
               </div>
@@ -403,7 +403,6 @@
     document.querySelectorAll('[name="paymentMethod"]').forEach(function(el){
         el.addEventListener('change', toggleCardInputs)
     });
-    toggleCardInputs();
     var style={
         base: {
           iconColor: '#404040',
@@ -450,10 +449,15 @@
     var form = document.querySelector('form.payment');
     form.addEventListener('submit', function(event) {
       event.preventDefault();
-
-      var paymentMethod = form.querySelector('[name="paymentMethod"]:checked').value;
-
+      var paymentMethod = form.querySelector('[name="paymentMethod"]:checked') ? form.querySelector('[name="paymentMethod"]:checked').value : undefined;
+      console.log(paymentMethod);
+      if(!paymentMethod){
+        alert("Please select a payment method");
+        return false;
+      }
       if (paymentMethod === "cash") {
+        document.getElementById('submitButton').disabled=true;
+        document.getElementById('submitButton').innerHTML="Creating Order..";
         form.submit();
         return true;
       }
@@ -463,6 +467,8 @@
           var errorElement = document.getElementById('card-errors');
           errorElement.textContent = result.error.message;
         } else {
+          document.getElementById('submitButton').disabled=true;
+          document.getElementById('submitButton').innerHTML="Creating Order..";
           stripeTokenHandler(result.token);
         }
       });
@@ -475,6 +481,5 @@
       form.appendChild(hiddenInput);
       form.submit();
     }
-
   </script>
 @endpush
