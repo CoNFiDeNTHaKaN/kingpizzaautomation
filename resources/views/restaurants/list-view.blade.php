@@ -198,16 +198,12 @@
                 </a>
             </figure>
             <ul>
-                <li class="mr-1">
-                    <a href="#detail-{{$restaurant->id}}"  data-toggle="collapse"  type="button"><i class="fas fa-info-circle"></i></a>
-                </li>
                 <li><span class="take {{$restaurant->order_now ? 'yes':'no'}}">Takeaway</span> <span class="deliv {{$restaurant->delivery_now ? 'yes':'no'}}">Delivery</span></li>
                 <li>
                     <div class="score"><strong>{{$restaurant->rating}}</strong></div>
                 </li>
             </ul>
             
-            <div class="collapse mt-1" id="detail-{{$restaurant->id}}" >
                 <div class="row">
                     <div class="col-12" style="z-index:99999999; background-color:white;">
                         @php
@@ -215,15 +211,18 @@
                         @endphp
                         <table style="width:100%; font-weight:bold;">
                             <tr>
-                                <td style="width:50%">Opening Hours:</td>
+                                <td style="width:45%">Opening Hours</td>
+                                <td style="width:5%">:</td>
                                 <td style="width:50%">{{$restaurant->formatted_hours($restaurant->opening_hours[$w][0])}} - {{$restaurant->formatted_hours($restaurant->opening_hours[$w][1])}}</td>
                             </tr>
                             <tr>
-                                <td style="width:50%">Take-Away Hours:</td>
+                                <td style="width:45">Take-Away Hours</td>
+                                <td style="width:5%">:</td>
                                 <td style="width:50%">{{$restaurant->formatted_hours($restaurant->order_hours[$w][0])}} - {{$restaurant->formatted_hours($restaurant->order_hours[$w][1])}}</td>
                             </tr>
                             <tr>
-                                <td style="width:50%">Delivery Hours:</td>
+                                <td style="width:45%">Delivery Hours</td>
+                                <td style="width:5%">:</td>
                                 <td style="width:50%">{{$restaurant->formatted_hours($restaurant->delivery_hours[$w][0])}} - {{$restaurant->formatted_hours($restaurant->delivery_hours[$w][1])}}</td>
                             </tr>
                         </table>
@@ -231,7 +230,6 @@
                     </div>
                     
                 </div>
-            </div>
         
         </div>
       </div>

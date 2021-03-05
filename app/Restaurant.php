@@ -205,12 +205,8 @@ class Restaurant extends Model implements HasMedia
 	public function formatted_hours($time){
 
 		$hour=$time[0].$time[1];
-		if($hour>12){
-			$hour=$hour-12;
-			return $hour.'.'.$time[2].$time[3].' pm';
-		}else{
-			return $hour.'.'.$time[2].$time[3].' am';
-		}
+		return $hour.'.'.$time[2].$time[3];
+
 						
 	}
 
