@@ -22,7 +22,7 @@
     </ul>
     <ul class="clearfix">
         <li>Subtotal<span>&pound;@money_format($basket->item_total)</span></li>
-        <li>Delivery fee<span>&pound;{{$basket->fulfilment_method=='collection' ? '0' : $basket->restaurant->delivery_fee}}</span></li>
+        <li>Delivery fee<span>&pound;{{$basket->fulfilment_method=='delivery' ? $basket->restaurant->delivery_fee : '0'}}</span></li>
         @if($basket->restaurant->service_charge > 0)
         <li>
               
@@ -45,13 +45,13 @@
     <div class="row opt_order mb-5">
         <div class="col-6">
             <label class="container_radio">Delivery
-                <input type="radio" value="option1" name="opt_order" onclick="updateFulfilmentMethod('delivery')" {{$basket->restaurant->delivery_now ? '' : 'disabled'}}>
+                <input type="radio" value="option1" name="opt_order" onclick="updateFulfilmentMethod('delivery')" {{$basket->fulfilment_method=='delivery' ? 'checked' : ''}} {{$basket->restaurant->delivery_now ? '' : 'disabled'}}>
                 <span class="checkmark"></span>
             </label>
         </div>
         <div class="col-6">
             <label class="container_radio">Take away
-                <input type="radio" value="option1" name="opt_order" onclick="updateFulfilmentMethod('collection')"  {{$basket->restaurant->order_now ? '' : 'disabled'}}>
+                <input type="radio" value="option1" name="opt_order" onclick="updateFulfilmentMethod('collection')"{{$basket->fulfilment_method=='collection' ? 'checked' : ''}}  {{$basket->restaurant->order_now ? '' : 'disabled'}}>
                 <span class="checkmark"></span>
             </label>
         </div>

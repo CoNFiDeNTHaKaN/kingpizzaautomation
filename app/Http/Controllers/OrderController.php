@@ -97,7 +97,7 @@ class OrderController extends Controller
       if ($exists) {
         $basket = $basket->first();
         if($basket->fulfilment_method==null){
-          return back()->withErrors(['Please select take away or delivery. If you are not able to select both, the restaurant is not currently taking any orders']);
+          return back()->withErrors(['Please select take away or delivery(click view basket if you are on mobile). If you are not able to select both, the restaurant is not currently taking any orders']);
         }
         return view('order-now.checkout')->with('basket', $basket);
       } else {

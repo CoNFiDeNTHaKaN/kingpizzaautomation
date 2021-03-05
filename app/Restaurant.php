@@ -216,11 +216,11 @@ class Restaurant extends Model implements HasMedia
 
     public function getDeliveryFeeAttribute(){
         $post_codes=PostCode::where('restaurant_id',$this->id)->get();
+        $post_code=Cookie::get('eko_postcode');
         if(count($post_codes)==0){
             return $this->attributes['delivery_fee'];
         }else{
-            return $post_codes->first(function($item){
-                $post_code=Cookie::get('eko_postcode');
+            return $post_codes->first(function($item) use ($post_code){
                 if($post_code[4]!=" "){
                     $post_code[5]=$post_code[4];
                     $post_code[4]=" ";
