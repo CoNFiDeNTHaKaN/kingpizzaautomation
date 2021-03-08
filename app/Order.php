@@ -68,6 +68,10 @@ class Order extends Model
       return $this->belongsTo('App\Basket');
     }
 
+    public function status(){
+      return $this->belongsTo('App\OrderStatus','order_status_id');
+    }
+
     public function getFulfilmentMethodAttribute () {
       return (($this->collection) ? "collection" : "delivery");
     }

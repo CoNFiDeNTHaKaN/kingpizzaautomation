@@ -29,7 +29,7 @@
 @section('content')
 
 <main class="bg_gray pt-5">
-<form enctype="multipart/form-data" class="payment" method="post" action="{{ route('restaurants.pay') }}"> 
+<form enctype="multipart/form-data" class="payment" method="post" action="{{ route('restaurants.pay') }}" id='paymentForm'> 
     {{csrf_field()}}
   <div class="container margin_60_20">
     <div class="row justify-content-center">
@@ -124,20 +124,20 @@
                   You don't have any saved addresses. You can save addresses <a href="{{route('user.savedAddresses')}}" target="_blank">here</a>.
                     <div class="form-group">
                         <label>Full Address</label>
-                        <input class="form-control" name="delivery[address_line_1]" value="{{old('delivery.address_line_1')}}" placeholder="Address Line 1">
-                        <input class="form-control" name="delivery[address_line_2]" value="{{old('delivery.address_line_2')}}" placeholder="Address Line 2">
+                        <input class="form-control" name="delivery[address_line_1]" value="{{old('delivery.address_line_1')}}" placeholder="House name (if there is one)">
+                        <input class="form-control" name="delivery[address_line_2]" value="{{old('delivery.address_line_2')}}" placeholder="House number and street name">
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>City</label>
-                                <input class="form-control" name="delivery[city]" value="{{old('delivery.city')}}" placeholder="City">
+                                <input class="form-control" name="delivery[city]" value="{{old('delivery.city')}}" placeholder="Town name">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
-                                <label>Postal Code</label>
-                                <input class="form-control" name="delivery[postcode]" value="{{old('delivery.postcode')}}" placeholder="PO21">
+                                <label>Post Code</label>
+                                <input class="form-control" name="delivery[postcode]" value="{{old('delivery.postcode')}}" placeholder="Type your postcode">
                             </div>
                         </div>
                     </div>
@@ -156,7 +156,7 @@
               <div class="main">
                 <div class="payment_select">
                   <label class="container_radio">Credit Card
-                    <input type="radio" value="card" name="paymentMethod" id="pay_card" onclick="showBilling()" checked>
+                    <input type="radio" value="card" name="paymentMethod" id="pay_card" onclick="showBilling()">
                     <span class="checkmark"></span>
                   </label>
                   <i class="icon_creditcard"></i>
@@ -171,7 +171,7 @@
                 </div>
 
                 
-                <div id="payment_credit">
+                <div id="payment_credit" style="display:none;">
                   <div id="card-errors" role="alert"></div>
 
                     <div style="background-color:#eceef2">
@@ -229,20 +229,20 @@
 
                   <div class="form-group">
                     <label>Full Address</label>
-                    <input class="form-control" name="card_address_line_1" value="{{old('card_address_line_1')}}" placeholder="Address Line 1">
-                    <input class="form-control" name="card_address_line_2" value="{{old('card_address_line_2')}}" placeholder="Address Line 2">
+                    <input class="form-control" name="card_address_line_1" value="{{old('card_address_line_1')}}" placeholder="House name (if there is one)">
+                    <input class="form-control" name="card_address_line_2" value="{{old('card_address_line_2')}}" placeholder="House number and street name">
                   </div>
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>City</label>
-                        <input class="form-control" name="card_address_city" value="{{old('card_address_city')}}" placeholder="City">
+                        <input class="form-control" name="card_address_city" value="{{old('card_address_city')}}" placeholder="Town name">
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
-                        <label>Postal Code</label>
-                        <input class="form-control" name="card_address_postcode" value="{{old('card_address_postcode')}}" placeholder="PO21">
+                        <label>Post Code</label>
+                        <input class="form-control" name="card_address_postcode" value="{{old('card_address_postcode')}}" placeholder="Type your postcode">
                       </div>
                     </div>
                   </div>
@@ -337,7 +337,7 @@
                     
                     <input type="hidden" name="basket_id" value="{{ $basket->id }}">
                     <input type="hidden" name="basket_hash" value="{{ $basket->hash }}">
-                    <button type="submit" class="btn_1 gradient full-width mb_5">Order Now</button>
+                    <button type="submit" class="btn_1 gradient full-width mb_5" id="submitButton">Order Now</button>
                   
                   </div>
               </div>
@@ -403,7 +403,6 @@
     document.querySelectorAll('[name="paymentMethod"]').forEach(function(el){
         el.addEventListener('change', toggleCardInputs)
     });
-    toggleCardInputs();
     var style={
         base: {
           iconColor: '#404040',
@@ -450,10 +449,15 @@
     var form = document.querySelector('form.payment');
     form.addEventListener('submit', function(event) {
       event.preventDefault();
-
-      var paymentMethod = form.querySelector('[name="paymentMethod"]:checked').value;
-
+      var paymentMethod = form.querySelector('[name="paymentMethod"]:checked') ? form.querySelector('[name="paymentMethod"]:checked').value : undefined;
+      console.log(paymentMethod);
+      if(!paymentMethod){
+        alert("Please select a payment method");
+        return false;
+      }
       if (paymentMethod === "cash") {
+        document.getElementById('submitButton').disabled=true;
+        document.getElementById('submitButton').innerHTML="Creating Order..";
         form.submit();
         return true;
       }
@@ -463,6 +467,8 @@
           var errorElement = document.getElementById('card-errors');
           errorElement.textContent = result.error.message;
         } else {
+          document.getElementById('submitButton').disabled=true;
+          document.getElementById('submitButton').innerHTML="Creating Order..";
           stripeTokenHandler(result.token);
         }
       });
@@ -475,6 +481,5 @@
       form.appendChild(hiddenInput);
       form.submit();
     }
-
   </script>
 @endpush

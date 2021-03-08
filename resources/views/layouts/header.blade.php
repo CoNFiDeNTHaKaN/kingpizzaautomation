@@ -23,8 +23,7 @@
             <ul>
                 <li>
                     <a href="{{ route('showPage', ['path'=>'help']) }}">
-                      <img src="{{ asset('images/build/help-icon-circle.png') }}">
-                      help
+                    🙏Help
                     </a>
                 </li>
 
