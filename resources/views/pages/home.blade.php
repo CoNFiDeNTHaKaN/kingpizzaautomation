@@ -72,7 +72,7 @@
       </div>
   </div>
   <div class="background-video  d-md-block">
-					<video muted loop playsinline autoplay id="homepage-video">
+					<video muted loop playsinline autoplay id="homepage-video" poster="{{asset('video/videoBg.png')}}">
 					   <source src="{{asset('video/bg1.mp4')}}" type="video/mp4">
 					</video>
 			</div>
