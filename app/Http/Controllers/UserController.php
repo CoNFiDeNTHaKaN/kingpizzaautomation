@@ -81,19 +81,7 @@ class UserController extends Controller
       return view('user.reset-password');
     }
     public function resetPasswordSubmit () {
-      $message="We send you an email to reset your password. <br> <br>
-      
-      ⚠️ Warning <br>
-      Some times because of your Internet connection the email take time to reach your inbox. <br>
-      
-      If is take more then two minutes please reset your password again. <br>
-      
-      Thank you for your passion.  <br>
-      
-      If you have login problem please do not hesitate to contact us <br> 01243 822 822 <br>
-      
-      Eat Kebab online Management <br>";
-      return view('user.reset-password' , ['message' => $message]);
+      return view('user.reset-password');
     }
 
     public function logout () {

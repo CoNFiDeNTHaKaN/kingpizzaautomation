@@ -9,7 +9,7 @@
   <div class="col-12 mt-5">
 
       <h2>Reset your password</h2>
-      {{$message ?? ''}}
+      {!!$message ?? ''!!}
       <p>Please enter your email to reset your password.</p>
       <form method="post" enctype="multipart/form-data" action="{{ route('password.email') }}">
         {{ csrf_field() }}
