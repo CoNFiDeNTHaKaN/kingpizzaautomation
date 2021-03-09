@@ -65,7 +65,7 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'preventback' => \App\Http\Middleware\PreventBackHistory::class,
-
+        'phoneVerified' =>  \App\Http\Middleware\PhoneVerified::class,
     ];
 
     /**
@@ -84,5 +84,6 @@ class Kernel extends HttpKernel
         \Illuminate\Routing\Middleware\SubstituteBindings::class,
         \Illuminate\Auth\Middleware\Authorize::class,
         \App\Http\Middleware\CheckIp::class,
+        \App\Http\Middleware\PhoneVerified::class,
     ];
 }

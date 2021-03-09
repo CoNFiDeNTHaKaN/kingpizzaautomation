@@ -11,8 +11,6 @@
 |
 */
 
-Auth::routes(['verify' => true]);
-
 Route::get('/banned' , function(){ return view('banned'); })->name('banned');
 
 Route::get('/', function () {
@@ -35,22 +33,28 @@ Route::prefix('user')->name('user.')->group(function () {
 
     Route::get('/logout', 'UserController@logout')->name('logout');
 
-    Route::get('/account', 'UserController@account')->name('account')->middleware('auth','verified');
-    Route::get('/orders', 'UserController@orders')->name('orders')->middleware('auth','verified');
+    Route::get('/account', 'UserController@account')->name('account')->middleware('auth');
+    Route::get('/orders', 'UserController@orders')->name('orders')->middleware('auth');
 
-    Route::get('/saved-cards', 'UserController@savedCards')->name('savedCards')->middleware('auth','verified');
-    Route::get('/saved-cards/delete', 'UserController@deleteCard')->name('deleteCard')->middleware('auth','verified');
-
-
-    Route::get('/saved-addresses', 'UserController@savedAddresses')->name('savedAddresses')->middleware('auth','verified');
-	Route::post('/saved-addresses', 'UserController@addAddress')->name('addAddress')->middleware('auth','verified');
-    Route::get('/saved-addresses/delete/{id}', 'UserController@deleteAddress')->name('deleteAddress')->middleware('auth','verified');
-	Route::get('/saved-addresses/edit/{id}', 'UserController@editAddress')->name('editAddress')->middleware('auth','verified');
-	Route::post('/saved-addresses/update', 'UserController@updateAddress')->name('updateAddress')->middleware('auth','verified');
+    Route::get('/saved-cards', 'UserController@savedCards')->name('savedCards')->middleware('auth');
+    Route::get('/saved-cards/delete', 'UserController@deleteCard')->name('deleteCard')->middleware('auth');
 
 
-    Route::get('/edit-info', 'UserController@editInfo')->name('editInfo')->middleware('auth','verified');
-    Route::post('/edit-info', 'UserController@editInfoSubmit')->name('editInfoSubmit')->middleware('auth','verified');
+    Route::get('/saved-addresses', 'UserController@savedAddresses')->name('savedAddresses')->middleware('auth');
+	Route::post('/saved-addresses', 'UserController@addAddress')->name('addAddress')->middleware('auth');
+    Route::get('/saved-addresses/delete/{id}', 'UserController@deleteAddress')->name('deleteAddress')->middleware('auth');
+	Route::get('/saved-addresses/edit/{id}', 'UserController@editAddress')->name('editAddress')->middleware('auth');
+	Route::post('/saved-addresses/update', 'UserController@updateAddress')->name('updateAddress')->middleware('auth');
+
+
+    Route::get('/edit-info', 'UserController@editInfo')->name('editInfo')->middleware('auth');
+    Route::post('/edit-info', 'UserController@editInfoSubmit')->name('editInfoSubmit')->middleware('auth');
+
+    Route::get('/verify-phone' , 'UserController@verifyPhone')->name('verifyPhone');
+    Route::post('/verify-phone' , 'UserController@sendVerificationCode')->name('sendVerificationCode');
+    Route::get('/verify-phone/{code}' , 'UserController@verifyLink')->name('verifyLink');
+
+    
 });
 
 Route::prefix('order-now')->name('restaurants.')->group(function () {
@@ -62,10 +66,10 @@ Route::prefix('order-now')->name('restaurants.')->group(function () {
     Route::post('/update-basket', 'OrderController@updateBasket')->name('updateBasket');
     Route::get('/resume-basket', 'OrderController@resumeBasket')->name('resumeBasket');
 
-    Route::get('/checkout', 'OrderController@checkout')->name('checkout')->middleware('preventback');
+    Route::get('/checkout', 'OrderController@checkout')->name('checkout')->middleware('preventback')->middleware('phoneVerified');
 
-    Route::get('/confirm', 'OrderController@confirm')->name('confirm')->middleware('preventback');
-    Route::post('/submitpayment', 'OrderController@pay')->name('pay');
+    Route::get('/confirm', 'OrderController@confirm')->name('confirm')->middleware('preventback')->middleware('phoneVerified');
+    Route::post('/submitpayment', 'OrderController@pay')->name('pay')->middleware('phoneVerified');
     Route::get('/thanks/{id}', 'OrderController@thanks')->name('thanks');
 
     Route::get('/clear-location', 'OrderController@resetLocation')->name('clearLocation');
