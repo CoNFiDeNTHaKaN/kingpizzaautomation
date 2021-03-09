@@ -6,10 +6,13 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Crypt;
 use App\User;
+use App\PhoneVerify;
 use App\UserAddress;
 use Mews\Captcha;
-
+use GuzzleHttp\Client;
+use GuzzleHttp\RequestOptions;
 class UserController extends Controller
 {
     public function register () {
@@ -81,19 +84,7 @@ class UserController extends Controller
       return view('user.reset-password');
     }
     public function resetPasswordSubmit () {
-      $message="We send you an email to reset your password. <br> <br>
-      
-      ⚠️ Warning <br>
-      Some times because of your Internet connection the email take time to reach your inbox. <br>
-      
-      If is take more then two minutes please reset your password again. <br>
-      
-      Thank you for your passion.  <br>
-      
-      If you have login problem please do not hesitate to contact us <br> 01243 822 822 <br>
-      
-      Eat Kebab online Management <br>";
-      return view('user.reset-password' , ['message' => $message]);
+      return view('user.reset-password');
     }
 
     public function logout () {
@@ -127,7 +118,6 @@ class UserController extends Controller
           'first_name' => $request->first_name,
           'last_name' => $request->last_name,
           'email' => $request->email,
-          'contact_number' => $request->contact_number,
       ]);
 
       if ($request->password!="") {
@@ -206,5 +196,64 @@ class UserController extends Controller
         }else return redirect()->route('user.savedAddresses');
       
     }
+
+    public function verifyPhone(){
+      return view('user.verify-phone',['message' => session('message')]);
+    }
+
+    public function sendVerificationCode(Request $request){
+      $user=Auth::user();
+      $code='phone_'.$request->phone;
+      $code=Crypt::encryptString($code);
+      $code=substr($code,10,10);
+      if(!$user->phoneVerify){
+        PhoneVerify::create(['user_id' => $user->id , 'code' => $code]);
+      }else{
+        $phoneVerify=$user->phoneVerify;
+        $phoneVerify->update(['code' => $code]);
+      }
+      $link=route('user.verifyLink',$code);
+      $user->update(['contact_number' => $request->phone , 
+                      'phone_verified_at' => null]);
+      
+      $data = [
+        'username' => 'hakan.samci@domesticsoftware.co.uk',
+        'password' => '34hakan34',
+        'emailaddress' => 'hakan.samci@domesticsoftware.co.uk',
+      ];
+      $client = new Client(['base_uri' => 'http://51.132.250.22:5003']);
+      $response=$client->post('/api/login/login', [
+        RequestOptions::JSON => $data
+        ]
+    )->getBody()->getContents();
+      $token="Bearer ";
+      $token.=json_decode($response)->token;
+
+      $data=[
+        'message' => 'Click the link to activate your account. '.$link,
+        'number' => $request->phone,
+      ];
+
+      $response=$client->post('/api/sendsms/send',
+      ['headers' => [
+        'Authorization' => $token,
+        ],
+        'json' => $data
+      ],
+      )->getBody()->getContents();
+      $response=json_decode($response);
+      return $response->result ?  redirect()->route('user.verifyPhone')->with('message' , 'We sent you a link via sms. Please click that link to verify your account.') :  redirect()->route('user.verifyPhone')->with('message' , 'Something went wrong. Please try again.');
+    }
+
+    public function verifyLink($code){
+      $user=PhoneVerify::where('code',$code)->get();
+      if(!$user){
+        return redirect()->route('user.verifyPhone')->with('message' , 'Invalid code. Please try again.');
+      }
+      $activate=User::find($user[0]->user_id);
+      $activate->update(['phone_verified_at' => date('Y-m-d H:i:s')]);
+      return redirect()->route('home');
+    }
+
 
 }

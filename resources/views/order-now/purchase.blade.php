@@ -76,7 +76,7 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label>Contact Number</label>
-                            <input class="form-control" name="telephone" value="{{ $user->contact_number }}" placeholder="Phone">
+                            <input class="form-control" name="telephone" value="{{ $user->contact_number }}" disabled>
                         </div>
                     </div>
                 </div>

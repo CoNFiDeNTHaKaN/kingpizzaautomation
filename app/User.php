@@ -36,6 +36,7 @@ class User extends Authenticatable implements MustVerifyEmail
       'delivery_address_city',
       'delivery_address_county',
       'delivery_address_postcode',
+      'phone_verified_at',
     ];
 
     /**
@@ -83,5 +84,9 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function getIsRestaurantAttribute() {
       return (bool) $this->restaurant()->exists();
+    }
+
+    public function phoneVerify(){
+      return $this->hasOne('App\PhoneVerify');
     }
 }
