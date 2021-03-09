@@ -203,6 +203,7 @@ class UserController extends Controller
 
     public function sendVerificationCode(Request $request){
       $user=Auth::user();
+      if(substr($request->phone,0,2)!="07") return back()->with('message','Please enter your mobile number');
       $code='phone_'.$request->phone;
       $code=Crypt::encryptString($code);
       $code=substr($code,10,10);
@@ -210,6 +211,10 @@ class UserController extends Controller
         PhoneVerify::create(['user_id' => $user->id , 'code' => $code]);
       }else{
         $phoneVerify=$user->phoneVerify;
+        if($phoneVerify->updated_at > date('Y-m-d H:i:s', strtotime('-5 minutes'))){
+          return back()->with('message' , 'Please try again in 5 minutes');
+        }
+
         $phoneVerify->update(['code' => $code]);
       }
       $link=route('user.verifyLink',$code);
