@@ -252,7 +252,7 @@ class UserController extends Controller
       }
       $activate=User::find($user[0]->user_id);
       $activate->update(['phone_verified_at' => date('Y-m-d H:i:s')]);
-      return redirect()->route('home');
+      return redirect()->route('home')->with('success','Your phone is verified.');
     }
 
 

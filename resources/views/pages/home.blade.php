@@ -31,10 +31,8 @@
                   </div>
                 @endif
                   @if (Session::has('success'))
-                    <div class="alert alert-success">
-                      <ul>
-                        <li>{{ Session::get('success') }}</li>
-                      </ul>
+                    <div style="background-color:green; color:white;">
+                        {{ Session::get('success') }}
                     </div>
                   @endif
                   <h5>"The British Website" </h5>
