@@ -202,6 +202,9 @@ class UserController extends Controller
     }
 
     public function sendVerificationCode(Request $request){
+      $request->validate([
+        'phone' => 'required|min:11'
+      ]);
       $user=Auth::user();
       $code='phone_'.$request->phone;
       $code=Crypt::encryptString($code);
