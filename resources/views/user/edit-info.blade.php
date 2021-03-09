@@ -39,8 +39,8 @@
                       <input type="email" class="form-control" name="email" id="email" value="{{ $user->email }}" required>
                     </div>
                     <div class="form-group">
-                      <label for="contact_number">Contact number</label>
-                      <input type="tel" class="form-control" name="contact_number" id="contact_number" value="{{ $user->contact_number }}" required>
+                      <label for="contact_number">Contact number</label><br>
+                      {{$user->contact_number}} <a href="{{route('user.verifyPhone')}}">{{$user->phone_verified_at==null ? 'Verify' : 'Change'}}</a>
                     </div>
                     <div class="form-group">
                       <label for="password">Password</label>

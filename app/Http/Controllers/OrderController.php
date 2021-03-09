@@ -17,13 +17,13 @@ use PhpAmqpLib\Connection\AMQPStreamConnection;
 use PhpAmqpLib\Message\AMQPMessage;
 use Bschmitt\Amqp\Facades\Amqp;
 use App\UserAddress;
-
+use \App\Http\Middleware\PhoneVerified;
 class OrderController extends Controller
 {
 
 	public function __construct()
 	{
-		$this->middleware('verified')->only(['checkout', 'confirm', 'pay']);
+
 	}
 
   public function updateBasket (Request $request)
@@ -163,7 +163,6 @@ class OrderController extends Controller
     $validatedData = $request->validate([
       'first_name' => "required|min:2",
       'last_name' => "required|min:2",
-      'telephone' => "required|min:11",
 	    'desired_time' => "required",
       'delivery.address_line_1' => "filled",
       'delivery.city' => "filled",
@@ -200,7 +199,6 @@ class OrderController extends Controller
 	  'notes' => $request->notes,
       'order_status_id' => 3
     ]);
-	$user->update(['contact_number' => $request->telephone]);
     if ($basket->fulfilment_method === "delivery") {
 		if($request->delivery!=null){
 			$order->update([

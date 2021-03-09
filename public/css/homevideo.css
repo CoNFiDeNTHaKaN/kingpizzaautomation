@@ -127,6 +127,13 @@
     background-size: cover;
     transition: 1s opacity;
 }
+.background-video video::-webkit-media-controls-overlay-play-button {
+  display: none;
+}
+.background-video video::-webkit-media-controls{
+    display: none;
+    -webkit-appearance: none;
+}
 .social{
 	position: absolute;
 	bottom:40px;
