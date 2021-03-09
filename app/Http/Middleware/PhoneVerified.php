@@ -16,6 +16,10 @@ class PhoneVerified
      */
     public function handle($request, Closure $next)
     {
+
+        if(!Auth::check()) 
+        return redirect()->route('user.login');
+
         if(Auth::user()->phone_verified_at==null)
         return redirect()->route('user.verifyPhone');
         else
