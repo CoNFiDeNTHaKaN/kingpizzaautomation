@@ -103,7 +103,7 @@ class Restaurant extends Model implements HasMedia
         }
         $post_code=substr($post_code , 0 , 6);
         $post_codes=PostCode::where('post_code' , $post_code)->get();
-        $restaurants=$query->get()->filter(function ($item) use ($post_codes){
+        $restaurants=$query->where('active',1)->get()->filter(function ($item) use ($post_codes){
             foreach($post_codes as $postcode){
                 if($item->id == $postcode->restaurant_id)
                 return true;
