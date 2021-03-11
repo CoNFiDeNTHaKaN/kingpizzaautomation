@@ -35,6 +35,7 @@
       <div class="form-group">
         <input class="form-control" type="password" name="password" id="password" placeholder="Password">
         <i class="icon_lock_alt"></i>
+        <label class="container_check mt-1"><input type="checkbox" onclick="showPassword()">Show Password <span class="checkmark"></span></label>
       </div>
       <div class="clearfix add_bottom_15">
         <div class="checkboxes float-left">
@@ -65,6 +66,15 @@
       function comingSoon(){
         document.getElementById('comingsoon').style.display="block";
         document.getElementById('comingsoon').innerHTML='Coming Soon';
+      }
+
+      function showPassword() {
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+          x.type = "text";
+        } else {
+          x.type = "password";
+        }
       }
     </script>
 @endsection
