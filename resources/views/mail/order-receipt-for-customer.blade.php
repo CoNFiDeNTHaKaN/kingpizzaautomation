@@ -765,6 +765,9 @@
 <div style="color:#555555;font-family:'Quicksand';line-height:1.2;padding-top:0px;padding-right:10px;padding-bottom:0px;padding-left:10px;">
 <div style="line-height: 1.2; font-size: 12px; color: #555555; font-family: 'Quicksand'; mso-line-height-alt: 14px;">
 <p style="font-size: 14px; line-height: 1.2; word-break: break-word; text-align: right; mso-line-height-alt: 17px; margin: 0;"><strong><span style="font-size: 16px; color: #404040;">{{$order->basket->total}}</span></strong></p>
+<p style="font-size: 14px; line-height: 1.2; word-break: break-word; text-align: right; mso-line-height-alt: 17px; margin: 0;"><strong><span style="font-size: 16px; color: #404040;">Paid : {{$order->paid ? 'Yes' : 'No'}}</span></strong></p>
+<p style="font-size: 14px; line-height: 1.2; word-break: break-word; text-align: right; mso-line-height-alt: 17px; margin: 0;"><strong><span style="font-size: 16px; color: #404040;">Customer Phone : {{$order->user->contact_number}}</span></strong></p>
+
 </div>
 </div>
 <!--[if mso]></td></tr></table><![endif]-->
