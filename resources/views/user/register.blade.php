@@ -57,7 +57,7 @@
       </div>
       -->
       <button type="submit" class="btn_1 gradient full-width">Register Now!</button>
-      <div class="text-center mt-2"><small>Already have an acccount? <strong><a href="{{ route('user.login') }}">Sign In</a></strong></small></div>
+      <div class="text-center mt-2"><small>Already have an acccount? <strong><a href="{{ route('user.login') }}">Login</a></strong></small></div>
     </form>
   
     <div class="copy">© 2020 Eat Kebab UK  </div>
