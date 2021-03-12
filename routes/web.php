@@ -74,7 +74,7 @@ Route::prefix('order-now')->name('restaurants.')->group(function () {
 
     Route::get('/clear-location', 'OrderController@resetLocation')->name('clearLocation');
 
-    Route::get('/{slug}', 'RestaurantController@detail')->name('goto')->middleware('preventback');
+    Route::get('/{slug}', 'RestaurantController@detail')->name('goto')->middleware('preventback')->middleware('phoneVerified');
 });
 
 Route::middleware(['isrestaurant'])->prefix('managers')->name('manager.')->group(function () {
