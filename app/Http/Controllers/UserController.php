@@ -23,7 +23,8 @@ class UserController extends Controller
         "first_name" => "required|min:2",
         "last_name" => "required|min:2",
         "contact_number" => [
-          "required|min:11",
+          "required",
+          "min:11",
           Rule::unique('users')
         ],
 		    //"captcha" => "required|captcha",
@@ -242,7 +243,8 @@ class UserController extends Controller
       $user=Auth::user();
       $request->validate([
         "contact_number" => [
-          "required|min:11",
+          "required",
+          "min:11",
           Rule::unique('users')
         ],
       ]);
