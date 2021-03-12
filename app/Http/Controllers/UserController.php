@@ -35,7 +35,7 @@ class UserController extends Controller
 		'captcha' => 'The captcha is wrong!',
 	  ]
 	  );
-	  if(substr($request->phone,0,2)!="07") return back()->withErrors('Please enter your mobile number');
+	  if(substr($request->contact_number,0,2)!="07") return back()->withErrors('Please enter your mobile number');
 
       if($user = User::create([
           'first_name' => $request->first_name,
@@ -46,7 +46,7 @@ class UserController extends Controller
       ])) {
         Auth::login($user);
 
-        $code='phone_'.$request->phone;
+        $code='phone_'.$request->contact_number;
         $code=Crypt::encryptString($code);
         $code=substr($code,10,10);
         PhoneVerify::create(['user_id' => $user->id , 'code' => $code]);
@@ -66,7 +66,7 @@ class UserController extends Controller
   
         $data=[
           'message' => 'Click the link to activate your account. '.$link,
-          'number' => $request->phone,
+          'number' => $request->contact_number,
         ];
   
         $response=$client->post('/api/sendsms/send',
