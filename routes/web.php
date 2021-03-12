@@ -59,7 +59,7 @@ Route::prefix('user')->name('user.')->group(function () {
 
 Route::prefix('order-now')->name('restaurants.')->group(function () {
     Route::get('/', 'RestaurantController@index')->name('list');
-    Route::get('/detail', 'RestaurantController@detail')->name('detail');
+    Route::get('/detail', 'RestaurantController@detail')->name('detail')->middleware('phoneVerified');
 
     Route::post('/{slug}/review' , 'RestaurantController@review')->name('submit-review');
 

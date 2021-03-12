@@ -34,12 +34,16 @@
            @endif
       {{ csrf_field() }}
       <div class="form-group">
-        <input class="form-control" type="text" value="{{ old('first_name') }}" name="first_name" placeholder="First Name">
+        <input class="form-control" type="text" value="{{ old('first_name') }}" name="first_name" placeholder="First name">
         <i class="icon_pencil-edit"></i>
       </div>
       <div class="form-group">
         <input class="form-control" type="text" value="{{ old('last_name') }}" name="last_name" placeholder="Last name">
         <i class="icon_pencil-edit"></i>
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" value="{{ old('contact_number') }}" name="contact_number" placeholder="Contact number">
+        <i class="icon_phone"></i>
       </div>
       <div class="form-group">
         <input class="form-control" type="email" value="{{ old('email') }}" name="email" placeholder="Email">
