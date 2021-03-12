@@ -22,7 +22,10 @@ class UserController extends Controller
       $validatedData = $request->validate([
         "first_name" => "required|min:2",
         "last_name" => "required|min:2",
-        "contact_number" => "required|min:11",
+        "contact_number" => [
+          "required|min:11",
+          Rule::unique('users')
+        ],
 		    //"captcha" => "required|captcha",
         "email" => [
           "required",
@@ -237,8 +240,14 @@ class UserController extends Controller
 
     public function sendVerificationCode(Request $request){
       $user=Auth::user();
-      if(substr($request->phone,0,2)!="07") return back()->with('message','Please enter your mobile number');
-      $code='phone_'.$request->phone;
+      $request->validate([
+        "contact_number" => [
+          "required|min:11",
+          Rule::unique('users')
+        ],
+      ]);
+      if(substr($request->contact_number,0,2)!="07") return back()->with('message','Please enter your mobile number');
+      $code='phone_'.$request->contact_number;
       $code=Crypt::encryptString($code);
       $code=substr($code,10,10);
       if(!$user->phoneVerify){
@@ -252,7 +261,7 @@ class UserController extends Controller
         $phoneVerify->update(['code' => $code]);
       }
       $link=route('user.verifyLink',$code);
-      $user->update(['contact_number' => $request->phone , 
+      $user->update(['contact_number' => $request->contact_number , 
                       'phone_verified_at' => null]);
       
       $data = [
@@ -270,7 +279,7 @@ class UserController extends Controller
 
       $data=[
         'message' => 'Click the link to activate your account. '.$link,
-        'number' => $request->phone,
+        'number' => $request->contact_number,
       ];
 
       $response=$client->post('/api/sendsms/send',
