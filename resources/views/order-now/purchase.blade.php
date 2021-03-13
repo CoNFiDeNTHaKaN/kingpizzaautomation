@@ -121,23 +121,23 @@
 				
 				            @endforeach
                   @else
-                  You don't have any saved addresses. You can save addresses <a href="{{route('user.savedAddresses')}}" target="_blank">here</a>.
+                  <h4>Delivery Address Details</h4>
                     <div class="form-group">
                         <label>Full Address</label>
-                        <input class="form-control" name="delivery[address_line_1]" value="{{old('delivery.address_line_1')}}" placeholder="House name (if there is one)">
-                        <input class="form-control" name="delivery[address_line_2]" value="{{old('delivery.address_line_2')}}" placeholder="House number and street name">
+                        <input class="form-control" name="delivery[address_line_1]" value="{{old('delivery.address_line_1')}}" placeholder="House number or name" autocomplete="off">
+                        <input class="form-control" name="delivery[address_line_2]" value="{{old('delivery.address_line_2')}}" placeholder="Street name" autocomplete="off">
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>City</label>
-                                <input class="form-control" name="delivery[city]" value="{{old('delivery.city')}}" placeholder="Town name">
+                                <input class="form-control" name="delivery[city]" value="{{old('delivery.city')}}" placeholder="Town name" autocomplete="off">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Post Code</label>
-                                <input class="form-control" name="delivery[postcode]" value="{{old('delivery.postcode')}}" placeholder="Type your postcode">
+                                <input class="form-control" name="delivery[postcode]" value="{{old('delivery.postcode')}}" placeholder="Type your postcode" autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -202,7 +202,7 @@
                   </div>
                 </div>
 
-                  <h4>Billing address</h4>
+                  <h4>Billing Address Details</h4>
                   @if(count($user->addresses))
                     <div class="form-group">
                       <label for="addressid">Select Address</label>
@@ -229,20 +229,20 @@
 
                   <div class="form-group">
                     <label>Full Address</label>
-                    <input class="form-control" name="card_address_line_1" value="{{old('card_address_line_1')}}" placeholder="House name (if there is one)">
-                    <input class="form-control" name="card_address_line_2" value="{{old('card_address_line_2')}}" placeholder="House number and street name">
+                    <input class="form-control" name="card_address_line_1" value="{{old('card_address_line_1')}}" placeholder="House number or name" autocomplete="off">
+                    <input class="form-control" name="card_address_line_2" value="{{old('card_address_line_2')}}" placeholder="Street name" autocomplete="off">
                   </div>
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>City</label>
-                        <input class="form-control" name="card_address_city" value="{{old('card_address_city')}}" placeholder="Town name">
+                        <input class="form-control" name="card_address_city" value="{{old('card_address_city')}}" placeholder="Town name" autocomplete="off">
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>Post Code</label>
-                        <input class="form-control" name="card_address_postcode" value="{{old('card_address_postcode')}}" placeholder="Type your postcode">
+                        <input class="form-control" name="card_address_postcode" value="{{old('card_address_postcode')}}" placeholder="Type your postcode" autocomplete="off">
                       </div>
                     </div>
                   </div>

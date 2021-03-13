@@ -48,6 +48,15 @@
                               <button class="btn_1 gradient" type="submit">Search</button>
                           </div>
                       </div>
+                      @if(Auth::check())
+                            @if(Auth::user()->phone_verified_at==null)
+                            <div class="row mt-2">
+                              <div class="col-12">
+                                  <a href="{{route('user.verifyPhone')}}"><div style="width:100%; background-color:red; color:white; text-align:center;">Your account is not verified. Click here to verify.</div></a>
+                              </div>
+                              </div>
+                            @endif
+                      @endif
                       <!-- /row -->
                       <div class="search_trends">
                           <h5>I <i class="fas fa-heart"></i> Kebabs</h5>

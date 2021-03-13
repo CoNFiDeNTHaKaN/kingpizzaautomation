@@ -22,11 +22,6 @@ class UserController extends Controller
       $validatedData = $request->validate([
         "first_name" => "required|min:2",
         "last_name" => "required|min:2",
-        "contact_number" => [
-          "required",
-          "min:11",
-          Rule::unique('users')
-        ],
 		    //"captcha" => "required|captcha",
         "email" => [
           "required",
@@ -39,48 +34,14 @@ class UserController extends Controller
 		'captcha' => 'The captcha is wrong!',
 	  ]
 	  );
-	  if(substr($request->contact_number,0,2)!="07") return back()->withErrors('Please enter your mobile number');
 
       if($user = User::create([
           'first_name' => $request->first_name,
           'last_name' => $request->last_name,
-          'contact_number' => $request->contact_number,
           'email' => $request->email,
           'password' => Hash::make($request->password)
       ])) {
         Auth::login($user);
-
-        $code='phone_'.$request->contact_number;
-        $code=Crypt::encryptString($code);
-        $code=substr($code,10,10);
-        PhoneVerify::create(['user_id' => $user->id , 'code' => $code]);
-        $link=route('user.verifyLink',$code);
-        $data = [
-          'username' => 'hakan.samci@domesticsoftware.co.uk',
-          'password' => '34hakan34',
-          'emailaddress' => 'hakan.samci@domesticsoftware.co.uk',
-        ];
-        $client = new Client(['base_uri' => 'http://51.132.250.22:5003']);
-        $response=$client->post('/api/login/login', [
-          RequestOptions::JSON => $data
-          ]
-      )->getBody()->getContents();
-        $token="Bearer ";
-        $token.=json_decode($response)->token;
-  
-        $data=[
-          'message' => 'Click the link to activate your account. '.$link,
-          'number' => $request->contact_number,
-        ];
-  
-        $response=$client->post('/api/sendsms/send',
-        ['headers' => [
-          'Authorization' => $token,
-          ],
-          'json' => $data
-        ],
-        )->getBody()->getContents();
-
         return redirect()->route('home');
       }
       

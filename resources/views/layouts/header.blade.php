@@ -1,9 +1,4 @@
 <header class="header black_nav clearfix element_to_stick">
-@if(Auth::check())
-    @if(Auth::user()->phone_verified_at==null)
-        <a href="{{route('user.verifyPhone')}}"><div style="width:100%; background-color:red; color:white; text-align:center;">Your account is not verified. Click here to verify.</div></a>
-    @endif
-@endif
     <div class="container">
         <div id="logo">
             <a href="{{route('home')}}">

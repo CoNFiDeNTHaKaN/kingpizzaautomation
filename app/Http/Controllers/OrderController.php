@@ -128,7 +128,7 @@ class OrderController extends Controller
 
         $availableTimes = [];
         $leadTime = ($basket->fulfilment_method === "delivery") ? $basket->restaurant->delivery_lead_time : $basket->restaurant->collection_lead_time;
-        $earliestPossibleTime = time() + ($leadTime * 60 );
+        $earliestPossibleTime = time() + ($leadTime * 240 );
         $earliestPossibleTime = ($earliestPossibleTime - ($earliestPossibleTime % 300)) + 300;
 
         $nextPossibleTime = $earliestPossibleTime;
