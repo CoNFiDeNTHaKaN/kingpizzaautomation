@@ -13,7 +13,7 @@
 
 
 <main>
-  <div class="page_header element_to_stick" style="margin-top:80px;">
+  <div class="page_header element_to_stick">
       <div class="container">
           <div class="row">
               <div class="col-xl-8 col-lg-7 col-md-7 d-none d-md-block">

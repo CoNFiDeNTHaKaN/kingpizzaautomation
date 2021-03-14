@@ -26,6 +26,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc=" crossorigin="anonymous" />
 <link href="{{asset('css/bootstrap_customized.min.css')}}" rel="stylesheet">
 <link href="{{asset('css/style.css')}}" rel="stylesheet">
-
+<link href="{{asset('css/custom.css')}}" rel="stylesheet">
 <!-- CUSTOM PAGE CSS -->
 @yield('pageCss')

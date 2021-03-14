@@ -180,7 +180,7 @@
 @section('content')
 <main>
 
-  <div class="hero_in detail_page background-image" data-background="url({{$restaurant->cover[0]}}" style="margin-top:80px;">
+  <div class="hero_in detail_page background-image" data-background="url({{$restaurant->cover[0]}}">
       <div class="wrapper opacity-mask" data-opacity-mask="rgba(0, 0, 0, 0.5)">
           <div class="container">
               <div class="main_info">

@@ -2,6 +2,7 @@
 /* CSS Document */
 .header{
 	padding: 38px 60px;
+	position: fixed;
 }
 .header .container{
 	max-width: 100%;
