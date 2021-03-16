@@ -43,8 +43,6 @@ class UserController extends Controller
           'password' => Hash::make($request->password)
       ])) {
         Auth::login($user);
-        //$user->sendEmailVerificationNotification();
-        event(new Registered($user));
         return redirect()->route('home');
       }
       
