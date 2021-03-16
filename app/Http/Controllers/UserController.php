@@ -13,6 +13,7 @@ use App\UserAddress;
 use Mews\Captcha;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
+use Illuminate\Auth\Events\Registered;
 class UserController extends Controller
 {
     public function register () {
@@ -42,7 +43,8 @@ class UserController extends Controller
           'password' => Hash::make($request->password)
       ])) {
         Auth::login($user);
-        $user->sendEmailVerificationNotification();
+        //$user->sendEmailVerificationNotification();
+        event(new Registered($user));
         return redirect()->route('home');
       }
       
