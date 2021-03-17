@@ -9,7 +9,7 @@
 <div id="register">
   <aside>
     <figure>
-    <a href="{{route('home')}}"><img src="{{asset('img/logo_sticky.svg')}}" width="140" height="35" alt=""></a>
+    <a href="{{route('home')}}"><img src="{{asset('video/logo_sticky.svg')}}"  height="35" alt=""></a>
     </figure>
     <div id="comingsoon" class="text-center" style="display:none; color:red; font-size:20px;"></div>
     @if ($errors->any())

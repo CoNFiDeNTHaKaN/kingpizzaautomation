@@ -3,6 +3,7 @@
 .header{
 	padding: 38px 60px;
 	position: fixed;
+	border-bottom: none;
 }
 .header .container{
 	max-width: 100%;
@@ -127,13 +128,6 @@
     transform: translateX(-50%) translateY(-50%);
     background-size: cover;
     transition: 1s opacity;
-}
-.background-video video::-webkit-media-controls-overlay-play-button {
-  display: none;
-}
-.background-video video::-webkit-media-controls{
-    display: none;
-    -webkit-appearance: none;
 }
 .social{
 	position: absolute;
@@ -368,7 +362,7 @@ footer h3 {
 		min-width: 200px;
 	}
 }
-@media (max-height:500px){
+@media (max-height:400px){
 	.background-video {
 		min-height: 620px;
 	}
@@ -377,6 +371,7 @@ footer h3 {
 		min-height: 620px;
 	}
 }
+
 
 
 

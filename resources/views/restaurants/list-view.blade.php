@@ -205,7 +205,7 @@
             </ul>
             
                 <div class="row">
-                    <div class="col-12" style="z-index:99999999; background-color:white;">
+                    <div class="col-12" style="background-color:white;">
                         @php
                         $w = date("w");
                         @endphp
