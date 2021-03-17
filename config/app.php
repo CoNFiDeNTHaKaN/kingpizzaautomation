@@ -163,6 +163,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 		Bschmitt\Amqp\AmqpServiceProvider::class,
 		Mews\Captcha\CaptchaServiceProvider::class,
+        Getripay\GetripayVerifyFakeEmails\GetripayVerifyFakeEmailsServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -232,7 +233,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 		'Amqp' => Bschmitt\Amqp\Facades\Amqp::class,
 		'Captcha' => Mews\Captcha\Facades\Captcha::class,
-
+        'GetripayVerifyFakeEmails' => Getripay\GetripayVerifyFakeEmails\GetripayVerifyFakeEmails::class,
     ],
 
 ];

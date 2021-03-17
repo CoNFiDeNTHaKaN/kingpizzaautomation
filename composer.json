@@ -9,6 +9,7 @@
     "license": "MIT",
     "require": {
         "php": "^7.2",
+        "babatundeodaniel/laravel-fake-email-validator": "^1.0",
         "bschmitt/laravel-amqp": "^2.0",
         "cartalyst/stripe-laravel": "11.0.*",
         "fideloper/proxy": "^4.0",
