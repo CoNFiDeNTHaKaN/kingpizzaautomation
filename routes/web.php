@@ -109,6 +109,6 @@ Route::prefix('ajax')->group(function () {
     Route::post('updateBasket' , 'OrderController@updateBasket');
 });
 
-//Auth::routes(['verify' => true]);
+Auth::routes(['verify' => true]);
 
 Route::get('/{path}', 'PageController@show')->name('showPage');

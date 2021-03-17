@@ -125,7 +125,6 @@ class OrderController extends Controller
       $exists = $basket->exists();
       if ($exists) {
         $basket = $basket->first();
-        $lastOrder=$basket->user->orders()->where('collection','0')->latest()->first();
 
         $availableTimes = [];
         $leadTime = ($basket->fulfilment_method === "delivery") ? $basket->restaurant->delivery_lead_time : $basket->restaurant->collection_lead_time;
@@ -141,8 +140,7 @@ class OrderController extends Controller
 
         return view('order-now.purchase')->with([
           'basket' => $basket,
-          'times' => $availableTimes,
-          'lastOrder' => $lastOrder ?? 'none'
+          'times' => $availableTimes
         ]);
       } else {
         return redirect()->route('home');
