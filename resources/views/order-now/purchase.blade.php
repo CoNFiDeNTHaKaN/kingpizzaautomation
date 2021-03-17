@@ -124,20 +124,20 @@
                   <h4>Delivery Address Details</h4>
                     <div class="form-group">
                         <label>Full Address</label>
-                        <input class="form-control" name="delivery[address_line_1]" value="{{old('delivery.address_line_1')}}" placeholder="House number or name" autocomplete="off">
-                        <input class="form-control" name="delivery[address_line_2]" value="{{old('delivery.address_line_2')}}" placeholder="Street name" autocomplete="off">
+                        <input class="form-control" name="delivery[address_line_1]" value="{{$lastOrder !='none' ? $lastOrder->delivery_line1 : old('delivery.address_line_1')}}" placeholder="House number or name" autocomplete="off">
+                        <input class="form-control" name="delivery[address_line_2]" value="{{$lastOrder !='none' ? $lastOrder->delivery_line2 : old('delivery.address_line_2')}}" placeholder="Street name" autocomplete="off">
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>City</label>
-                                <input class="form-control" name="delivery[city]" value="{{old('delivery.city')}}" placeholder="Town name" autocomplete="off">
+                                <input class="form-control" name="delivery[city]" value="{{$lastOrder !='none' ? $lastOrder->delivery_city : old('delivery.city')}}" placeholder="Town name" autocomplete="off">
                             </div>
                         </div>
                         <div class="col-md-3">
                             <div class="form-group">
                                 <label>Post Code</label>
-                                <input class="form-control" name="delivery[postcode]" value="{{old('delivery.postcode')}}" placeholder="Type your postcode" autocomplete="off">
+                                <input class="form-control" name="delivery[postcode]" value="{{$lastOrder !='none' ? $lastOrder->delivery_postcode : old('delivery.postcode')}}" placeholder="Type your postcode" autocomplete="off">
                             </div>
                         </div>
                     </div>
@@ -226,23 +226,22 @@
                       </div>
                     @endforeach
                   @else
-
                   <div class="form-group">
                     <label>Full Address</label>
-                    <input class="form-control" name="card_address_line_1" value="{{old('card_address_line_1')}}" placeholder="House number or name" autocomplete="off">
-                    <input class="form-control" name="card_address_line_2" value="{{old('card_address_line_2')}}" placeholder="Street name" autocomplete="off">
+                    <input class="form-control" name="card_address_line_1" value="{{$lastOrder !='none' ? $lastOrder->billing_line1 : old('card_address_line_1')}}" placeholder="House number or name" autocomplete="off">
+                    <input class="form-control" name="card_address_line_2" value="{{$lastOrder !='none' ? $lastOrder->billing_line2 : old('card_address_line_2')}}" placeholder="Street name" autocomplete="off">
                   </div>
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>City</label>
-                        <input class="form-control" name="card_address_city" value="{{old('card_address_city')}}" placeholder="Town name" autocomplete="off">
+                        <input class="form-control" name="card_address_city" value="{{$lastOrder !='none' ? $lastOrder->billing_city : old('card_address_city')}}" placeholder="Town name" autocomplete="off">
                       </div>
                     </div>
                     <div class="col-md-3">
                       <div class="form-group">
                         <label>Post Code</label>
-                        <input class="form-control" name="card_address_postcode" value="{{old('card_address_postcode')}}" placeholder="Type your postcode" autocomplete="off">
+                        <input class="form-control" name="card_address_postcode" value="{{$lastOrder !='none' ? $lastOrder->billing_postcode :old('card_address_postcode')}}" placeholder="Type your postcode" autocomplete="off">
                       </div>
                     </div>
                   </div>
