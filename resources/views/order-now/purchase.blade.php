@@ -105,6 +105,7 @@
 					                <option value="{{$address->id}}">{{$address->name}}</option>
 				                @endforeach
 				              </select>
+                      <small>You can edit your adresses <a href="{{route('user.savedAddresses')}}" target="_blank">here</a></small>
 				            </div>
 				
 				            @foreach($user->addresses as $address)
@@ -122,6 +123,7 @@
 				            @endforeach
                   @else
                   <h4>Delivery Address Details</h4>
+                  You can save adresses <a href="{{route('user.savedAddresses')}}" target="_blank">here</a>
                     <div class="form-group">
                         <label>Full Address</label>
                         <input class="form-control" name="delivery[address_line_1]" value="{{$lastOrder !='none' ? $lastOrder->delivery_line1 : old('delivery.address_line_1')}}" placeholder="House number or name" autocomplete="off">
