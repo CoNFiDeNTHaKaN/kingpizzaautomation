@@ -126,14 +126,14 @@
                   You can save adresses <a href="{{route('user.savedAddresses')}}" target="_blank">here</a>
                     <div class="form-group">
                         <label>Full Address</label>
-                        <input class="form-control" name="delivery[address_line_1]" value="{{$lastOrder !='none' ? $lastOrder->delivery_line1 : old('delivery.address_line_1')}}" placeholder="House number or name" autocomplete="off">
-                        <input class="form-control" name="delivery[address_line_2]" value="{{$lastOrder !='none' ? $lastOrder->delivery_line2 : old('delivery.address_line_2')}}" placeholder="Street name" autocomplete="off">
+                        <input class="form-control" name="delivery[address_line_1]" value="{{$lastOrder !='none' ? $lastOrder->delivery_line1 : old('delivery.address_line_1')}}" placeholder="House No - Street Name" autocomplete="off">
+                        <input class="form-control" name="delivery[address_line_2]" value="{{$lastOrder !='none' ? $lastOrder->delivery_line2 : old('delivery.address_line_2')}}" placeholder="Town Name" autocomplete="off">
                     </div>
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>City</label>
-                                <input class="form-control" name="delivery[city]" value="{{$lastOrder !='none' ? $lastOrder->delivery_city : old('delivery.city')}}" placeholder="Town name" autocomplete="off">
+                                <input class="form-control" name="delivery[city]" value="{{$lastOrder !='none' ? $lastOrder->delivery_city : old('delivery.city')}}" placeholder="City" autocomplete="off">
                             </div>
                         </div>
                         <div class="col-md-3">
@@ -230,14 +230,14 @@
                   @else
                   <div class="form-group">
                     <label>Full Address</label>
-                    <input class="form-control" name="card_address_line_1" value="{{$lastOrder !='none' ? $lastOrder->billing_line1 : old('card_address_line_1')}}" placeholder="House number or name" autocomplete="off">
-                    <input class="form-control" name="card_address_line_2" value="{{$lastOrder !='none' ? $lastOrder->billing_line2 : old('card_address_line_2')}}" placeholder="Street name" autocomplete="off">
+                    <input class="form-control" name="card_address_line_1" value="{{$lastOrder !='none' ? $lastOrder->billing_line1 : old('card_address_line_1')}}" placeholder="House No - Street Name" autocomplete="off">
+                    <input class="form-control" name="card_address_line_2" value="{{$lastOrder !='none' ? $lastOrder->billing_line2 : old('card_address_line_2')}}" placeholder="Town Name" autocomplete="off">
                   </div>
                   <div class="row">
                     <div class="col-md-6">
                       <div class="form-group">
                         <label>City</label>
-                        <input class="form-control" name="card_address_city" value="{{$lastOrder !='none' ? $lastOrder->billing_city : old('card_address_city')}}" placeholder="Town name" autocomplete="off">
+                        <input class="form-control" name="card_address_city" value="{{$lastOrder !='none' ? $lastOrder->billing_city : old('card_address_city')}}" placeholder="City" autocomplete="off">
                       </div>
                     </div>
                     <div class="col-md-3">

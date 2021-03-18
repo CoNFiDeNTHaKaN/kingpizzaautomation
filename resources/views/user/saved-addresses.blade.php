@@ -79,11 +79,11 @@
               <input id="name" class="form-control" type="text" name="name">
             </div>
             <div class="form-group">
-              <label for="line1">Address line 1</label>
+              <label for="line1">House No - Street Name</label>
               <input id="line1" class="form-control" type="text" name="line1">
             </div>
             <div class="form-group">
-              <label for="line2">Address line 2</label>
+              <label for="line2">Town Name</label>
               <input id="line2" class="form-control" type="text" name="line2">
             </div>
             <div class="form-group">
