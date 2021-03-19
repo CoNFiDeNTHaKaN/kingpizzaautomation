@@ -7,7 +7,7 @@
 			<div class="forgot">
 				<div class="row">
 					<div class="col-12">
-					<p><b>{{$message ?? ''}}</b></p>
+					<p><b>{{session('message') ?? ''}}</b></p>
 					Please enter your phone number to activate your account.
 					<form action="{{route('user.sendVerificationCode')}}" method="POST">
 					@csrf
