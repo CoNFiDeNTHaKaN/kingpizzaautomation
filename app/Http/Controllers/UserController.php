@@ -39,7 +39,8 @@ class UserController extends Controller
 		'captcha' => 'The captcha is wrong!',
 	  ]
 	  );
-
+    $request->first_name[0]=strtoupper($request->first_name[0]);
+    $request->first_last[0]=strtoupper($request->last_name[0]);
       if($user = User::create([
           'first_name' => $request->first_name,
           'last_name' => $request->last_name,
@@ -69,7 +70,7 @@ class UserController extends Controller
     }
     public function loginSubmit (Request $request) {
       $validatedData = $request->validate([
-        "email" => "required|email|exists:users",
+        "email" => "required|email",
         "password" => "required",
       ]);
 
@@ -80,7 +81,7 @@ class UserController extends Controller
           return redirect( $request->input('url') );
         }
       } else {
-        return back()->withErrors(['Those details don\'t match our records']);
+        return back()->withErrors(['Please check your credentials or sign up.']);
       }
     }
 

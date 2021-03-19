@@ -22,8 +22,8 @@
     </div>
     @endif
     <div class="access_social">
-        <a href="#0" onclick="comingSoon()" class="social_bt facebook">Register with Facebook</a>
-        <a href="#0" onclick="comingSoon()" class="social_bt google">Register with Google</a>
+        <!-- <a href="#0" onclick="comingSoon()" class="social_bt facebook">Register with Facebook</a>
+        <a href="#0" onclick="comingSoon()" class="social_bt google">Register with Google</a> -->
       </div>
           <div class="divider"><span>Or</span></div>
           @if (request()->has('redirectTo'))
@@ -66,11 +66,11 @@
 
 @endsection
 @section('postcontent')
-    <script>
+    <script>/*
       function comingSoon(){
         document.getElementById('comingsoon').style.display="block";
         document.getElementById('comingsoon').innerHTML='Coming Soon';
-      }
+      }*/
     </script>
 @endsection
 @section('pageCss')
