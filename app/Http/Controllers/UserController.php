@@ -35,11 +35,13 @@ class UserController extends Controller
 		'captcha' => 'The captcha is wrong!',
 	  ]
 	  );
-      $request->first_name[0]=strtoupper($register->first_name[0]);
-      $request->last_name[0]=strtoupper($register->last_name[0]);
+    $firstname=$request->first_name;
+    $firstname[0]=strtoupper($firstname[0]);
+    $lastname=$request->last_name;
+    $lastname[0]=strtoupper($lastname[0]);
       if($user = User::create([
-          'first_name' => $request->first_name,
-          'last_name' => $request->last_name,
+          'first_name' => $firstname,
+          'last_name' => $lastname,
           'email' => $request->email,
           'password' => Hash::make($request->password)
       ])) {
