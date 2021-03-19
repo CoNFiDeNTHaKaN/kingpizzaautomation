@@ -21,11 +21,13 @@
         </ul>
     </div>
     @endif
+    <!--
     <div class="access_social">
         <a href="#0" onclick="comingSoon()" class="social_bt facebook">Login with Facebook</a>
         <a href="#0" onclick="comingSoon()" class="social_bt google">Login with Google</a>
       </div>
           <div class="divider"><span>Or</span></div>
+          -->
     <form action="{{ route('user.loginSubmit') }}" method="POST" autocomplete="off">
       {{ csrf_field() }}
       <div class="form-group">
@@ -63,11 +65,12 @@
 
 @section('postcontent')
     <script>
+    /*
       function comingSoon(){
         document.getElementById('comingsoon').style.display="block";
         document.getElementById('comingsoon').innerHTML='Coming Soon';
       }
-
+*/
       function showPassword() {
         var x = document.getElementById("password");
         if (x.type === "password") {

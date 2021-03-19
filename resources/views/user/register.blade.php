@@ -21,11 +21,11 @@
         </ul>
     </div>
     @endif
-    <div class="access_social">
-        <!-- <a href="#0" onclick="comingSoon()" class="social_bt facebook">Register with Facebook</a>
-        <a href="#0" onclick="comingSoon()" class="social_bt google">Register with Google</a> -->
-      </div>
-          <div class="divider"><span>Or</span></div>
+    <!-- s<div class="access_social">
+        <a href="#0" onclick="comingSoon()" class="social_bt facebook">Register with Facebook</a>
+        <a href="#0" onclick="comingSoon()" class="social_bt google">Register with Google</a> 
+      </div>-->
+
           @if (request()->has('redirectTo'))
           <form method="post" autocomplete="off" action="{{ route('user.registerSubmit', ['redirectTo' => request()->redirectTo]) }}">
            @else
