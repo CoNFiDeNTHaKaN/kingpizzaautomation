@@ -22,7 +22,7 @@ class ForgotPasswordController extends Controller
     use SendsPasswordResetEmails;
 
     public function sendResetLinkEmail(Request $request){
-		$message="We send you an email to reset your password. <br> <br>
+		$message="We have sent an email to reset your password. <br> <br>
       
       ⚠️ Warning <br>
       Some times because of your Internet connection the email take time to reach your inbox. <br>
@@ -33,7 +33,11 @@ class ForgotPasswordController extends Controller
       
       If you have login problem please do not hesitate to contact us <br> 01243 822 822 <br>
       
-      Eat Kebab online Management <br>";
+      Eat Kebab online Management <br>
+      
+      <br>
+      
+      <b>If you didn't get any email, please try again.";
 		$this->validateEmail($request);
 
         // We will send the password reset link to this user. Once we have attempted
