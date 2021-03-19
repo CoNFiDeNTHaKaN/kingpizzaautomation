@@ -13,16 +13,13 @@ use App\UserAddress;
 use Mews\Captcha;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
-use \Validator;
-//use Illuminate\Auth\Events\Registered;
-use Getripay\GetripayVerifyFakeEmails\GetripayVerifyFakeEmails;
+
 class UserController extends Controller
 {
     public function register () {
       return view('user.register',['captcha' => captcha_img()]);
     }
     public function registerSubmit (Request $request) {
-      Validator::extend('not_fake_email', 'Getripay\GetripayVerifyFakeEmails\GetripayVerifyFakeEmails@validate');
       $validatedData = $request->validate([
         "first_name" => "required|min:2",
         "last_name" => "required|min:2",
@@ -31,7 +28,6 @@ class UserController extends Controller
           "required",
           "email",
           Rule::unique('users'),
-          "not_fake_email"
         ],
         "password" => "required",
       ],
