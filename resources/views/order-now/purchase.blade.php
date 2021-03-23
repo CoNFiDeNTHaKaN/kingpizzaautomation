@@ -122,26 +122,19 @@
 				
 				            @endforeach
                   @else
-                  <h4>Delivery Address Details</h4>
+                  <div class="head">
+                    <div class="title">
+                      <h3>Delivery Address Details</h3>
+                    </div>
+                  </div>
+                  
                   You can save adresses <a href="{{route('user.savedAddresses')}}" target="_blank">here</a>
                     <div class="form-group">
                         <label>Full Address</label>
-                        <input class="form-control" name="delivery[address_line_1]" value="{{$lastOrder !='none' ? $lastOrder->delivery_line1 : old('delivery.address_line_1')}}" placeholder="House No - Street Name" autocomplete="off">
-                        <input class="form-control" name="delivery[address_line_2]" value="{{$lastOrder !='none' ? $lastOrder->delivery_line2 : old('delivery.address_line_2')}}" placeholder="Town Name" autocomplete="off">
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>City</label>
-                                <input class="form-control" name="delivery[city]" value="{{$lastOrder !='none' ? $lastOrder->delivery_city : old('delivery.city')}}" placeholder="City" autocomplete="off">
-                            </div>
-                        </div>
-                        <div class="col-md-3">
-                            <div class="form-group">
-                                <label>Post Code</label>
-                                <input class="form-control" name="delivery[postcode]" value="{{$lastOrder !='none' ? $lastOrder->delivery_postcode : old('delivery.postcode')}}" placeholder="Type your postcode" autocomplete="off">
-                            </div>
-                        </div>
+                        <input class="form-control mt-1" name="delivery[address_line_1]" value="{{$lastOrder !='none' ? $lastOrder->delivery_line1 : old('delivery.address_line_1')}}" placeholder="House Name or Number" autocomplete="off">
+                        <input class="form-control mt-1" name="delivery[address_line_2]" value="{{$lastOrder !='none' ? $lastOrder->delivery_line2 : old('delivery.address_line_2')}}" placeholder="Street Name" autocomplete="off">
+                        <input class="form-control mt-1" name="delivery[city]" value="{{$lastOrder !='none' ? $lastOrder->delivery_city : old('delivery.city')}}" placeholder="Town" autocomplete="off">
+                        <input class="form-control mt-1" name="delivery[postcode]" value="{{$lastOrder !='none' ? $lastOrder->delivery_postcode : old('delivery.postcode')}}" placeholder="Postcode" autocomplete="off">
                     </div>
                   @endif
                 @endif
@@ -204,7 +197,11 @@
                   </div>
                 </div>
 
-                  <h4>Billing Address Details</h4>
+                <div class="head">
+                    <div class="title">
+                      <h3>Billing Address Details</h3>
+                    </div>
+                  </div>
                   @if(count($user->addresses))
                     <div class="form-group">
                       <label for="addressid">Select Address</label>
@@ -230,22 +227,10 @@
                   @else
                   <div class="form-group">
                     <label>Full Address</label>
-                    <input class="form-control" name="card_address_line_1" value="{{$lastOrder !='none' ? $lastOrder->billing_line1 : old('card_address_line_1')}}" placeholder="House No - Street Name" autocomplete="off">
-                    <input class="form-control" name="card_address_line_2" value="{{$lastOrder !='none' ? $lastOrder->billing_line2 : old('card_address_line_2')}}" placeholder="Town Name" autocomplete="off">
-                  </div>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label>City</label>
-                        <input class="form-control" name="card_address_city" value="{{$lastOrder !='none' ? $lastOrder->billing_city : old('card_address_city')}}" placeholder="City" autocomplete="off">
-                      </div>
-                    </div>
-                    <div class="col-md-3">
-                      <div class="form-group">
-                        <label>Post Code</label>
-                        <input class="form-control" name="card_address_postcode" value="{{$lastOrder !='none' ? $lastOrder->billing_postcode :old('card_address_postcode')}}" placeholder="Type your postcode" autocomplete="off">
-                      </div>
-                    </div>
+                    <input class="form-control mt-1" name="card_address_line_1" value="{{$lastOrder !='none' ? $lastOrder->billing_line1 : old('card_address_line_1')}}" placeholder="House Name or Number" autocomplete="off">
+                    <input class="form-control mt-1" name="card_address_line_2" value="{{$lastOrder !='none' ? $lastOrder->billing_line2 : old('card_address_line_2')}}" placeholder="Street Name" autocomplete="off">
+                    <input class="form-control mt-1" name="card_address_city" value="{{$lastOrder !='none' ? $lastOrder->billing_city : old('card_address_city')}}" placeholder="Town" autocomplete="off">
+                    <input class="form-control mt-1" name="card_address_postcode" value="{{$lastOrder !='none' ? $lastOrder->billing_postcode :old('card_address_postcode')}}" placeholder="Postcode" autocomplete="off">
                   </div>
                   @endif
       

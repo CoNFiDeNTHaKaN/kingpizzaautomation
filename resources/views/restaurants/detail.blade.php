@@ -815,7 +815,7 @@
         },
         beforeSend: function() {
           modal.modal('show');
-          modal.find('.modal-title').text("Removing From Basket");
+          modal.find('.modal-title').text("Updating");
           modal.find('.modal-body').html("<div class='loading'></div>");
           modal.find('.modal-body').css('margin','0 auto');
         } ,
