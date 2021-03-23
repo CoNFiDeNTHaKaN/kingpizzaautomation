@@ -37,6 +37,8 @@
       <div class="form-group">
         <input class="form-control" type="password" name="password" id="password" placeholder="Password">
         <i class="icon_lock_alt"></i>
+      </div>
+      <div class="form-group">
         <label class="container_check mt-1"><input type="checkbox" onclick="showPassword()">Show Password <span class="checkmark"></span></label>
       </div>
       <div class="clearfix add_bottom_15">
