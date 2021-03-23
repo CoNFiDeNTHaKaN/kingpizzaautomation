@@ -13,7 +13,7 @@ use App\UserAddress;
 use Mews\Captcha;
 use GuzzleHttp\Client;
 use GuzzleHttp\RequestOptions;
-
+use Illuminate\Support\Facades\Cookie;
 class UserController extends Controller
 {
     public function register () {
@@ -46,7 +46,7 @@ class UserController extends Controller
           'password' => Hash::make($request->password)
       ])) {
         Auth::login($user);
-        return redirect()->route('home');
+        return redirect()->route('user.verifyPhone');
       }
       
 
@@ -267,7 +267,11 @@ class UserController extends Controller
       }
       $activate=User::find($user[0]->user_id);
       $activate->update(['phone_verified_at' => date('Y-m-d H:i:s')]);
+      if(Cookie::get('eko_postcode')==null)
       return redirect()->route('home')->with('success','Your phone is verified.');
+      else
+      return redirect()->route('restaurants.list')->with('success','Your phone is verified.');
+
     }
 
 
