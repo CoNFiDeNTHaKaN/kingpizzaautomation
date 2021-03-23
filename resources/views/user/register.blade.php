@@ -42,7 +42,7 @@
         <i class="icon_pencil-edit"></i>
       </div>
       <div class="form-group">
-        <input class="form-control" type="email" value="{{ old('email') }}" name="email" placeholder="Email">
+        <input class="form-control" type="email" value="{{ old('email') }}" name="email" placeholder="Email Address">
         <i class="icon_mail_alt"></i>
       </div>
       <div class="form-group">

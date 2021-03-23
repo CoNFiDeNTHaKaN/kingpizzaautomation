@@ -33,6 +33,7 @@ class UserController extends Controller
       ],
 	  $messages = [
 		'captcha' => 'The captcha is wrong!',
+    'email.unique' => 'The email address has already been taken. Please try to login.',
 	  ]
 	  );
     $firstname=$request->first_name;
