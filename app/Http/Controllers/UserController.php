@@ -29,7 +29,7 @@ class UserController extends Controller
           "email",
           Rule::unique('users'),
         ],
-        "password" => "required",
+        "password" => "required|confirmed",
       ],
 	  $messages = [
 		'captcha' => 'The captcha is wrong!',

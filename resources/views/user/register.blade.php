@@ -49,6 +49,11 @@
         <input class="form-control" type="password" name="password" id="password" placeholder="Password">
         <i class="icon_lock_alt"></i>
       </div>
+      <div class="form-group">
+        <input class="form-control" type="password" name="password_confirmation" id="password_confirmation" placeholder="Confirm Password">
+        <i class="icon_lock_alt"></i>
+        <label class="container_check mt-1"><input type="checkbox" onclick="showPassword()">Show Passwords <span class="checkmark"></span></label>
+      </div>
       <!--
       <div class="form-group">
 		    <div class="text-center" style="width:100%;">{!!$captcha!!}</div>
@@ -73,6 +78,23 @@
         document.getElementById('comingsoon').innerHTML='Coming Soon';
       }
       */
+
+
+      function showPassword() {
+        var x = document.getElementById("password");
+        var y = document.getElementById("password_confirmation");
+
+        if (x.type === "password") {
+          x.type = "text";
+        } else {
+          x.type = "password";
+        }
+        if (y.type === "password") {
+          y.type = "text";
+        } else {
+          y.type = "password";
+        }
+      }
     </script>
 @endsection
 @section('pageCss')
