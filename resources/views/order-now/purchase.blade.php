@@ -128,7 +128,7 @@
                     </div>
                   </div>
                   
-                  You can save adresses <a href="{{route('user.savedAddresses')}}" target="_blank">here</a>
+                 <!-- You can save adresses <a href="{{route('user.savedAddresses')}}" target="_blank">here</a> -->
                     <div class="form-group">
                         <label>Full Address</label>
                         <input class="form-control mt-1" name="delivery[address_line_1]" value="{{$lastOrder !='none' ? $lastOrder->delivery_line1 : old('delivery.address_line_1')}}" placeholder="House Name or Number" autocomplete="off">
