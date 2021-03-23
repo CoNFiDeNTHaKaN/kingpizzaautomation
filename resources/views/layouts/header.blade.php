@@ -49,9 +49,11 @@
                         <li>
                             <a href="{{ route('user.editInfo') }}">Edit My Info</a>
                         </li>
+                        <!--
                         <li>
                             <a href="{{ route('user.savedAddresses') }}">Saved Addresses</a>
                         </li>
+                        -->
                         <li>
                             <a href="{{ route('user.savedCards') }}">Saved Cards</a>
                         </li>

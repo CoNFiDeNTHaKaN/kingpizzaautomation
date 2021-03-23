@@ -39,13 +39,13 @@ Route::prefix('user')->name('user.')->group(function () {
     Route::get('/saved-cards', 'UserController@savedCards')->name('savedCards')->middleware('auth');
     Route::get('/saved-cards/delete', 'UserController@deleteCard')->name('deleteCard')->middleware('auth');
 
-
+/*
     Route::get('/saved-addresses', 'UserController@savedAddresses')->name('savedAddresses')->middleware('auth');
 	Route::post('/saved-addresses', 'UserController@addAddress')->name('addAddress')->middleware('auth');
     Route::get('/saved-addresses/delete/{id}', 'UserController@deleteAddress')->name('deleteAddress')->middleware('auth');
 	Route::get('/saved-addresses/edit/{id}', 'UserController@editAddress')->name('editAddress')->middleware('auth');
 	Route::post('/saved-addresses/update', 'UserController@updateAddress')->name('updateAddress')->middleware('auth');
-
+*/
 
     Route::get('/edit-info', 'UserController@editInfo')->name('editInfo')->middleware('auth');
     Route::post('/edit-info', 'UserController@editInfoSubmit')->name('editInfoSubmit')->middleware('auth');
