@@ -206,7 +206,7 @@ class OrderController extends Controller
 			$order->update([
 			'delivery_line1' => $request->delivery['address_line_1'],
 			'delivery_line2' => $request->delivery['address_line_2'],
-		'	delivery_city' => $request->delivery['city'],
+		  'delivery_city' => $request->delivery['city'],
 			'delivery_postcode' => $request->delivery['postcode'],
 			]);
 		}else{
