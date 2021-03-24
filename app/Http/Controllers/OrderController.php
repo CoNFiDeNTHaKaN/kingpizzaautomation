@@ -129,13 +129,13 @@ class OrderController extends Controller
 
         $availableTimes = [];
         $leadTime = ($basket->fulfilment_method === "delivery") ? $basket->restaurant->delivery_lead_time : $basket->restaurant->collection_lead_time;
-        $earliestPossibleTime = time() + ($leadTime * 240 );
-        $earliestPossibleTime = ($earliestPossibleTime - ($earliestPossibleTime % 300)) + 300;
+        $earliestPossibleTime = time() + ($leadTime * 60 );
+        $earliestPossibleTime = ($earliestPossibleTime - ($earliestPossibleTime % 300)) + 600;
 
         $nextPossibleTime = $earliestPossibleTime;
         $availableTimes[ date( 'G:i',$nextPossibleTime) ] = $nextPossibleTime;
         for ($i=1; $i<10; $i++) {
-          $nextPossibleTime += 600;
+          $nextPossibleTime += 900;
           $availableTimes[ date( 'G:i',$nextPossibleTime) ] = $nextPossibleTime;
         }
 
