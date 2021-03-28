@@ -50,10 +50,10 @@ Route::prefix('user')->name('user.')->group(function () {
     Route::get('/edit-info', 'UserController@editInfo')->name('editInfo')->middleware('auth');
     Route::post('/edit-info', 'UserController@editInfoSubmit')->name('editInfoSubmit')->middleware('auth');
 
-    Route::get('/verify-phone' , 'UserController@verifyPhone')->name('verifyPhone');
-    Route::post('/verify-phone' , 'UserController@sendVerificationCode')->name('sendVerificationCode');
-    Route::get('/verify-phone/enter-code' , 'UserController@enterVerifyCode')->name('enterVerifyCode');
-    Route::post('/verify-phone/enter-code' , 'UserController@postVerifyCode')->name('postVerifyCode');
+    Route::get('/verify-phone' , 'UserController@verifyPhone')->name('verifyPhone')->middleware('auth');
+    Route::post('/verify-phone' , 'UserController@sendVerificationCode')->name('sendVerificationCode')->middleware('auth');
+    Route::get('/verify-phone/enter-code' , 'UserController@enterVerifyCode')->name('enterVerifyCode')->middleware('auth');
+    Route::post('/verify-phone/enter-code' , 'UserController@postVerifyCode')->name('postVerifyCode')->middleware('auth');
 
     
 });
