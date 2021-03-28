@@ -260,7 +260,7 @@ class UserController extends Controller
       ],
       )->getBody()->getContents();
       $response=json_decode($response);
-      return $response->result ?  redirect()->route('user.enterVerifyCode')->with('message' , 'We sent you a link via sms. Please enter your code here to verify your account.') :  redirect()->route('user.verifyPhone')->with('message' , 'Something went wrong. Please try again.');
+      return $response->result ?  redirect()->route('user.enterVerifyCode')->with('message' , 'We sent you a code via sms. Please enter your code here to verify your account.') :  redirect()->route('user.verifyPhone')->with('message' , 'Something went wrong. Please try again.');
     }
 
     public function enterVerifyCode(){
