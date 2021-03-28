@@ -52,7 +52,8 @@ Route::prefix('user')->name('user.')->group(function () {
 
     Route::get('/verify-phone' , 'UserController@verifyPhone')->name('verifyPhone');
     Route::post('/verify-phone' , 'UserController@sendVerificationCode')->name('sendVerificationCode');
-    Route::get('/verify-phone/{code}' , 'UserController@verifyLink')->name('verifyLink');
+    Route::get('/verify-phone/enter-code' , 'UserController@enterVerifyCode')->name('enterVerifyCode');
+    Route::post('/verify-phone/enter-code' , 'UserController@postVerifyCode')->name('postVerifyCode');
 
     
 });

@@ -215,9 +215,10 @@ class UserController extends Controller
         ],
       ]);
       if(substr($request->contact_number,0,2)!="07") return back()->with('message','Please enter your mobile number');
-      $code='phone_'.$request->contact_number;
-      $code=Crypt::encryptString($code);
-      $code=substr($code,10,10);
+      
+      do {
+        $code=rand(100000,999999);
+      }while(!PhoneVerify::where('code', $code)->exists());
       if(!$user->phoneVerify){
         PhoneVerify::create(['user_id' => $user->id , 'code' => $code]);
       }else{
@@ -228,7 +229,7 @@ class UserController extends Controller
 
         $phoneVerify->update(['code' => $code]);
       }
-      $link=route('user.verifyLink',$code);
+
       $user->update(['contact_number' => $request->contact_number , 
                       'phone_verified_at' => null]);
       
@@ -246,7 +247,7 @@ class UserController extends Controller
       $token.=json_decode($response)->token;
 
       $data=[
-        'message' => 'Click the link to activate your account. '.$link,
+        'message' => 'Your verification code is '.$code . '.',
         'number' => $request->contact_number,
       ];
 
@@ -258,13 +259,17 @@ class UserController extends Controller
       ],
       )->getBody()->getContents();
       $response=json_decode($response);
-      return $response->result ?  redirect()->route('user.verifyPhone')->with('message' , 'We sent you a link via sms. Please click that link to verify your account.') :  redirect()->route('user.verifyPhone')->with('message' , 'Something went wrong. Please try again.');
+      return $response->result ?  redirect()->route('user.enterVerifyCode')->with('message' , 'We sent you a link via sms. Please enter your code here to verify your account.') :  redirect()->route('user.verifyPhone')->with('message' , 'Something went wrong. Please try again.');
     }
 
-    public function verifyLink($code){
-      $user=PhoneVerify::where('code',$code)->get();
+    public function enterVerifyCode(){
+      return view('user.verify-code',['message' => session('message')]);
+    }
+
+    public function postVerifyCode(Request $request){
+      $user=PhoneVerify::where('code',$request->code)->get();
       if(!$user){
-        return redirect()->route('user.verifyPhone')->with('message' , 'Invalid code. Please try again.');
+        return redirect()->route('user.enterVerifyCode')->with('message' , 'Invalid code. Please try again.');
       }
       $activate=User::find($user[0]->user_id);
       $activate->update(['phone_verified_at' => date('Y-m-d H:i:s')]);
