@@ -28,6 +28,7 @@
 						<input type="submit" class="form-control btn btn_1" value="Activate Account">
 						</div>
 					</form>
+					Or <a href="{{route('user.verifyPhone')}}">go back</a> and enter your number again.
 					</div>
 				</div>
 			</div>
