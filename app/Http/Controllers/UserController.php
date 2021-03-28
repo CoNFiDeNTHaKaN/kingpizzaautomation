@@ -218,7 +218,7 @@ class UserController extends Controller
       
       do {
         $code=rand(100000,999999);
-      }while(!PhoneVerify::where('code', $code)->exists());
+      }while(PhoneVerify::where('code', $code)->exists());
       if(!$user->phoneVerify){
         PhoneVerify::create(['user_id' => $user->id , 'code' => $code]);
       }else{
