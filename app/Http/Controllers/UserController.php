@@ -207,6 +207,7 @@ class UserController extends Controller
 
     public function sendVerificationCode(Request $request){
       $user=Auth::user();
+      $user->update(['contact_number' => null]);
       $request->validate([
         "contact_number" => [
           "required",
