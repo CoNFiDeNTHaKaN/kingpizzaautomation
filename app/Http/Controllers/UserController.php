@@ -268,7 +268,7 @@ class UserController extends Controller
     }
 
     public function postVerifyCode(Request $request){
-      $user=PhoneVerify::where('code',$request->code)->get();
+      $user=PhoneVerify::where('code',$request->code)->first();
       if(!$user){
         return redirect()->route('user.enterVerifyCode')->with('message' , 'Invalid code. Please try again.');
       }

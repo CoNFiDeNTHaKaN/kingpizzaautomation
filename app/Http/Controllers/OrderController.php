@@ -99,6 +99,9 @@ class OrderController extends Controller
         if($basket->fulfilment_method==null){
           return back()->withErrors(['Please select take away or delivery(click view basket if you are on mobile). If you are not able to select both, the restaurant is not currently taking any orders']);
         }
+        if($basket->fulfilment_method=="delivery" && $basket->discounted_total['discounted_total']<$basket->restaurant->delivery_minimum){
+          return back()->withErrors(['Your order total must be at least ' . $basket->restaurant->delivery_minimum . '£ for delivery.']);
+        }
         return view('order-now.checkout')->with('basket', $basket);
       } else {
         return response('', 404);
