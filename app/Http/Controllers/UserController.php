@@ -272,7 +272,7 @@ class UserController extends Controller
       if(!$user){
         return redirect()->route('user.enterVerifyCode')->with('message' , 'Invalid code. Please try again.');
       }
-      $activate=User::find($user[0]->user_id);
+      $activate=User::find($user->user_id);
       $activate->update(['phone_verified_at' => date('Y-m-d H:i:s')]);
       if(Cookie::get('eko_postcode')==null)
       return redirect()->route('home')->with('success','Your phone is verified.');

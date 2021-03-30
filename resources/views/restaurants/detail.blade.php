@@ -173,6 +173,13 @@
 		height: 200px;
 	}
 }
+
+.page-item{
+  display:inline!important;
+  margin-right:20px;
+  font-size:30px;
+
+}
 </style>
 
 @endpush
@@ -330,7 +337,7 @@
 	                    </div>
 	                    <!-- /row -->
 	                    <div id="reviews">
-                          @foreach($restaurant->ratings as $rating)
+                          @foreach($ratings as $rating)
 	                        <div class="review_card">
 	                            <div class="row">
 	                                <div class="col-md-2 user_info">
@@ -352,6 +359,7 @@
 	                            <!-- /row -->
                           </div>
                           @endforeach
+                          {{ $ratings->links() }}
 	                        <!-- /review_card -->
 	                    </div>
 	                    <!-- /reviews -->
@@ -902,6 +910,27 @@ back.onclick = function () {
     }, speed);
 }
 
+  document.querySelector("#reviews").addEventListener("click" , function(e){
+    if(e.target.classList.contains("page-link")){
+    e.preventDefault();
+    let url=e.target.getAttribute('href');
+    $.ajax(url, 
+      {
+        dataType: 'html', // type of response data
+        timeout: 10000,     // timeout milliseconds
+        type:'GET',
+
+        beforeSend: function() {
+          $("#reviews").html("<div class='loading'></div>");
+        } ,
+        success: function (data,status,xhr) {
+          $("#reviews").html(jQuery("<div> /").append(data).find('#reviews').html());
+          document.querySelectorAll(".page-link").removeClass("active");
+          e.target.addClass("active");
+        },
+      });
+    }  
+  });
 </script>
 
 @endpush

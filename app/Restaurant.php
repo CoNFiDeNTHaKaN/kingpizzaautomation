@@ -199,7 +199,7 @@ class Restaurant extends Model implements HasMedia
 
     public function ratings()
     {
-        return $this->hasMany('App\Rating');
+        return $this->hasMany('App\Rating')->orderBy('created_at' , 'DESC');
     }
 	
 	public function formatted_hours($time){

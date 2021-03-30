@@ -119,10 +119,13 @@ class RestaurantController extends Controller
                 ]);
             }
         }
+        $ratings = $restaurant->ratings()->paginate(5);
         $cookieDuration = Config::get('settings.basketduration');
         Cookie::queue('eko_basket_id', $basket->hash, $cookieDuration);
         return view('restaurants.detail', ['restaurant' => $restaurant,
-                                            'basket' => $basket]);
+                                            'basket' => $basket,
+                                            'ratings' => $ratings
+                                            ]);
     }
 
     public function review(Request $request){
